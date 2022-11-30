@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: build
-        run: go build ./...
+        run: cd server/src && go build ./...
 
   # testを通す
   test:
@@ -40,5 +40,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: test
-        run: go test ./... -v
+        run: cd server/src && go test ./... -v
       
