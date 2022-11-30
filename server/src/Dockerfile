@@ -1,0 +1,11 @@
+## Build
+FROM golang:1.17.0-alpine
+
+WORKDIR /go/src/github.com/Doer-org/hack-camp_vol9_2022-1
+
+COPY . .
+
+RUN go get -u github.com/cosmtrek/air
+RUN go mod download
+
+CMD ["air"]
