@@ -11,7 +11,7 @@ type RoomUsecase struct {
 }
 
 type IRoomUsecase interface {
-	NewRoom(id string, name string, max_member int, member_count int) *entity.Room
+	NewRoom(id string, name string, max_member int, member_count int) (*entity.Room, error)
 	GetRoomOfID(id string) *entity.Room
 }
 
@@ -21,10 +21,14 @@ func NewRoomUsecase(repo repository.IRoomRepository) IRoomUsecase {
 	}
 }
 
-func (uc RoomUsecase) NewRoom(id string, name string, max_member int, member_count int) *entity.Room {
+func (uc RoomUsecase) NewRoom(id string, name string, max_member int, member_count int) (*entity.Room, error) {
+	if name == "" {
+		return nil, nil
+	}
+
 	id = utils.GetHashId()
-	room := uc.repo.NewRoom(id, name, max_member, member_count)
-	return room
+	room, err := uc.repo.NewRoom(id, name, max_member, member_count)
+	return room, err
 }
 
 func (uc RoomUsecase) GetRoomOfID(id string) *entity.Room {
