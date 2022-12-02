@@ -7,13 +7,16 @@ import (
 	"github.com/Doer-org/hack-camp_vol9_2022-1/utils"
 )
 
+var _ IRoomUsecase = &RoomUsecase{}
+
 type RoomUsecase struct {
 	repo repository.IRoomRepository
 }
 
 type IRoomUsecase interface {
 	NewRoom(id string, name string, max_member int, member_count int) (*entity.Room, error)
-	GetRoomOfID(id string) *entity.Room
+	GetRoomOfID(id string) (*entity.Room, error)
+	DeleteAllRoom() error
 }
 
 func NewRoomUsecase(repo repository.IRoomRepository) IRoomUsecase {
@@ -34,17 +37,26 @@ func (uc RoomUsecase) NewRoom(id string, name string, max_member int, member_cou
 	}
 
 	id = utils.GetHashId()
-	room := uc.repo.GetRoomOfID(id)
+	room, err := uc.repo.GetRoomOfID(id)
+
+	if err != nil {
+		return nil, err
+	}
 
 	if room.Name != "" {
 		return nil, usecase_error.RoomdIdUsedError
 	}
 
-	room, err := uc.repo.NewRoom(id, name, max_member, member_count)
+	room, err = uc.repo.NewRoom(id, name, max_member, member_count)
 	return room, err
 }
 
-func (uc RoomUsecase) GetRoomOfID(id string) *entity.Room {
-	room := uc.repo.GetRoomOfID(id)
-	return room
+func (uc RoomUsecase) GetRoomOfID(id string) (*entity.Room, error) {
+	room, err := uc.repo.GetRoomOfID(id)
+	return room, err
+}
+
+func (uc RoomUsecase) DeleteAllRoom() error {
+	err := uc.repo.DeleteAllRoom()
+	return err
 }

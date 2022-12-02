@@ -25,3 +25,4 @@ func DSN() (string, error) {
 		dbDatabase,
 	) + "parseTime=true&collation=utf8mb4_bin", nil
 }
+
