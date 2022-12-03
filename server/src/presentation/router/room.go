@@ -13,6 +13,6 @@ func (r Router) InitRoomRouter(db *sql.DB) {
 	uc := usecase.NewRoomUsecase(repo)
 	h := handler.NewRoomHandler(uc)
 
-	g := r.Engine.Group("/post")
+	g := r.Engine.Group("/room")
 	g.POST("/create", h.NewRoom)
 }
