@@ -15,4 +15,5 @@ func (r Router) InitRoomRouter(db *sql.DB) {
 
 	g := r.Engine.Group("/room")
 	g.POST("/create", h.NewRoom)
+	g.GET("/:id", h.GetRoomOfID)
 }

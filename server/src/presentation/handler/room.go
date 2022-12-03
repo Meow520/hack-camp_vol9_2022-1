@@ -46,6 +46,25 @@ func (rh RoomHandler) NewRoom(ctx *gin.Context) {
 
 }
 
+func (rh RoomHandler) GetRoomOfID(ctx *gin.Context) {
+	id := ctx.Param("id")
+	room, err := rh.uc.GetRoomOfID(id)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	roomJson := roomEntityToJson(room)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": roomJson},
+	)
+}
+
 type roomJson struct {
 	Id          string `json:"id"`
 	Name        string `json:"name"`
