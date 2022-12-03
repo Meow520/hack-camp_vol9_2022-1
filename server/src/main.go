@@ -1,7 +1,19 @@
 package main
 
-import "log"
+import (
+	"github.com/Doer-org/hack-camp_vol9_2022-1/infrastructure/database"
+	"github.com/Doer-org/hack-camp_vol9_2022-1/presentation/router"
+)
 
 func main() {
-	log.Println("Hello")
+	db, err := database.NewDB()
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	r := router.NewRouter()
+	r.InitRoomRouter(db)
+
+	r.Serve()
 }
