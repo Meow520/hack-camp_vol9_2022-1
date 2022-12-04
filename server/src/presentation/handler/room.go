@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
+	"github.com/Doer-org/hack-camp_vol9_2022-1/presentation/json"
 	"github.com/Doer-org/hack-camp_vol9_2022-1/usecase"
 	"github.com/gin-gonic/gin"
 )
@@ -19,8 +19,8 @@ func NewRoomHandler(uc usecase.IRoomUsecase) *RoomHandler {
 }
 
 func (rh RoomHandler) NewRoom(ctx *gin.Context) {
-	var json roomJson
-	if err := ctx.BindJSON(&json); err != nil {
+	var roomjson json.RoomJson
+	if err := ctx.BindJSON(&roomjson); err != nil {
 		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{"error": err.Error()},
@@ -28,7 +28,7 @@ func (rh RoomHandler) NewRoom(ctx *gin.Context) {
 		return
 	}
 
-	room := rooomJsonToEntity(&json)
+	room := json.RoomJsonToEntity(&roomjson)
 	room, err := rh.uc.NewRoom(room.Id, room.Name, room.MaxMember, room.MemberCount)
 	if err != nil {
 		ctx.JSON(
@@ -38,7 +38,7 @@ func (rh RoomHandler) NewRoom(ctx *gin.Context) {
 		return
 	}
 
-	roomJson := roomEntityToJson(room)
+	roomJson := json.RoomEntityToJson(room)
 	ctx.JSON(
 		http.StatusOK,
 		gin.H{"data": roomJson},
@@ -58,36 +58,9 @@ func (rh RoomHandler) GetRoomOfID(ctx *gin.Context) {
 		return
 	}
 
-	roomJson := roomEntityToJson(room)
+	roomJson := json.RoomEntityToJson(room)
 	ctx.JSON(
 		http.StatusOK,
 		gin.H{"data": roomJson},
 	)
-}
-
-type roomJson struct {
-	Id          string `json:"id"`
-	Name        string `json:"name"`
-	MaxMember   int    `json:"max_member"`
-	MemberCount int    `json:"member_count"`
-}
-
-type roomsJson []roomJson
-
-func roomEntityToJson(c *entity.Room) roomJson {
-	return roomJson{
-		Id:          c.Id,
-		Name:        c.Name,
-		MaxMember:   c.MaxMember,
-		MemberCount: c.MemberCount,
-	}
-}
-
-func rooomJsonToEntity(j *roomJson) *entity.Room {
-	return &entity.Room{
-		Id:          j.Id,
-		Name:        j.Name,
-		MaxMember:   j.MaxMember,
-		MemberCount: j.MemberCount,
-	}
 }
