@@ -11,6 +11,8 @@ type RoomJson struct {
 
 type RoomsJson []RoomJson
 
+type RoomIdJson string
+
 func RoomEntityToJson(c *entity.Room) RoomJson {
 	return RoomJson{
 		Id:          c.Id,
