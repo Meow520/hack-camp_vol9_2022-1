@@ -25,3 +25,4 @@ func (c *Client) setConnectionConfig() {
 func (c *Client) setWriteDeadline() {
 	c.Conn.SetWriteDeadline(time.Now().Add(writeWait))
 }
+

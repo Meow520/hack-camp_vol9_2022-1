@@ -1,8 +1,6 @@
 package ws
 
 import (
-	"sync"
-
 	"github.com/Doer-org/hack-camp_vol9_2022-1/presentation/json"
 )
 
@@ -20,17 +18,9 @@ type Hub struct {
 	Unregister chan *Client
 
 	RoomId json.RoomIdJson
-
-	// スレッドセーフ
-	Mu sync.RWMutex
 }
 
 type Hubs map[json.RoomIdJson]*Hub
-
-type HubsStore struct {
-	Hubs *Hubs
-	Mu   sync.RWMutex
-}
 
 // NewHubは新しいHubオブジェクトを生成します
 func NewHub(roomId json.RoomIdJson) *Hub {
@@ -40,20 +30,12 @@ func NewHub(roomId json.RoomIdJson) *Hub {
 		Unregister:    make(chan *Client),
 		Clients:       make(map[*Client]bool),
 		RoomId:        roomId,
-		Mu:            sync.RWMutex{},
 	}
 }
 
 // NewHubsは新たにHubsオブジェクトのポインタを返します
 func NewHubs() *Hubs {
 	return &Hubs{}
-}
-
-func NewHubsStore() *HubsStore {
-	return &HubsStore{
-		Hubs: NewHubs(),
-		Mu:   sync.RWMutex{},
-	}
 }
 
 // RunはHubを起動し、待ち受け状態にします
