@@ -17,6 +17,7 @@ type IRoomUsecase interface {
 	NewRoom(id string, name string, max_member int, member_count int) (*entity.Room, error)
 	GetRoomOfID(id string) (*entity.Room, error)
 	DeleteAllRoom() error
+	DeleteRoomOfID(id string) error
 }
 
 func NewRoomUsecase(repo repository.IRoomRepository) IRoomUsecase {
@@ -58,5 +59,10 @@ func (uc RoomUsecase) GetRoomOfID(id string) (*entity.Room, error) {
 
 func (uc RoomUsecase) DeleteAllRoom() error {
 	err := uc.repo.DeleteAllRoom()
+	return err
+}
+
+func (uc RoomUsecase) DeleteRoomOfID(id string) error {
+	err := uc.repo.DeleteRoomOfID(id)
 	return err
 }

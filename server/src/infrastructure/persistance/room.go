@@ -86,3 +86,23 @@ func (repo *RoomRepository) DeleteAllRoom() error {
 
 	return nil
 }
+
+func (repo *RoomRepository) DeleteRoomOfID(id string) error {
+	statement := "DELETE FROM rooms WHERE id = ?"
+
+	stmt, err := repo.db.Prepare(statement)
+	if err != nil {
+		log.Println(err)
+		return db_error.StatementError
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(id)
+
+	if err != nil {
+		log.Println(err)
+		return db_error.ExecError
+	}
+
+	return nil
+}
