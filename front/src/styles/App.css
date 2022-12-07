@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .setting {
-  background-image: '../images/background.png';
+  background-image: "../images/background.png";
 }
