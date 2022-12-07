@@ -39,7 +39,7 @@ func (h *RoomWsHandler) ConnectWsRoom(ctx *gin.Context) {
 		h.HubsStore.SetNewHubOfRoomId(hub, roomIdJson)
 		go hub.Run()
 	}
-	h.uc
+	//TODO: ここにroomがあるなら作成ないならjoinの関数を作りましょう
 	h.serveWsConnOfHub(hub, ctx.Writer, ctx.Request, roomIdJson)
 }
 
