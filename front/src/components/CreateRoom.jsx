@@ -16,7 +16,7 @@ const CreateRoom = () => {
     ):(
     <div className="w-screen h-screen bg-slate-300 justify-center flex text-center">
       <div className="w-1/2 h-128 bg-white my-auto rounded-2xl">
-        <p className="text-6xl py-24 font-bold">Create Room!</p>
+        <p className="text-6xl py-24 font-bold">Create a Room</p>
         <div className="py-20">
           <button 
           type="submit"
