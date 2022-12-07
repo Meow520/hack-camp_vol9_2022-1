@@ -1,6 +1,8 @@
 package ws
 
 import (
+	"fmt"
+
 	"github.com/Doer-org/hack-camp_vol9_2022-1/presentation/json"
 )
 
@@ -33,6 +35,16 @@ func NewHub(roomId json.RoomIdJson) *Hub {
 	}
 }
 
+type HubsStore struct {
+	Hubs *Hubs
+}
+
+func NewHubsStore() *HubsStore {
+	return &HubsStore{
+		Hubs: NewHubs(),
+	}
+}
+
 // NewHubsは新たにHubsオブジェクトのポインタを返します
 func NewHubs() *Hubs {
 	return &Hubs{}
@@ -61,4 +73,36 @@ func (h *Hub) Run() {
 			}
 		}
 	}
+}
+
+func (h *HubsStore) SetNewHubOfRoomId(hub *Hub, roomId json.RoomIdJson) {
+	(*h.Hubs)[roomId] = hub
+}
+
+func (h *HubsStore) GetExistsHubOfRoomId(roomId json.RoomIdJson) (*Hub, bool) {
+	hub, ok := (*h.Hubs)[roomId]
+	if !ok {
+		return nil, false
+	}
+	return hub, true
+}
+
+func (h *HubsStore) CheckAndDeleteHubOfRoomId(roomId json.RoomIdJson) error {
+	_, found := h.GetExistsHubOfRoomId(roomId)
+	if !found {
+		return fmt.Errorf("Hubs.CheckAndDeleteHubOfRoomId Error : roomId not found in Hubs")
+	}
+
+	delete(*h.Hubs, roomId)
+	return nil
+}
+
+func (h *HubsStore) GetConnCountOfRoomId(roomId json.RoomIdJson) (int, error) {
+	_, found := h.GetExistsHubOfRoomId(roomId)
+	if !found {
+		return 0, fmt.Errorf("hub not found (roomId:%s)", (string)(roomId))
+	}
+
+	cntConn := len((*h.Hubs)[roomId].Clients)
+	return cntConn, nil
 }
