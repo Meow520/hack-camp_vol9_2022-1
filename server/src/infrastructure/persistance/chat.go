@@ -45,3 +45,36 @@ func (repo *ChatRepository) CreateChat(message string, size string, member_id in
 
 	return chat, nil
 }
+
+func (repo *ChatRepository) GetAllChat() ([]*entity.Chat, error) {
+	statement := "SELECT * FROM chats"
+	stmt, err := repo.db.Prepare(statement)
+
+	if err != nil {
+		log.Println(err)
+		return nil, db_error.StatementError
+	}
+
+	defer stmt.Close()
+
+	var chats []*entity.Chat
+	rows, err := stmt.Query()
+
+	for rows.Next() {
+		chat := &entity.Chat{}
+		if err := rows.Scan(
+			&chat.Id,
+			&chat.Message,
+			&chat.Size,
+			&chat.RoomId,
+			&chat.MemberId,
+		); err != nil {
+			log.Println(err)
+			return nil, db_error.RowsScanError
+		}
+
+		chats = append(chats, chat)
+	}
+
+	return chats, err
+}

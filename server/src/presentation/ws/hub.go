@@ -11,7 +11,7 @@ type Hub struct {
 	Clients map[*Client]bool
 
 	// Inbound messages from the clients.
-	BroadcastRoom chan *json.RoomJson
+	BroadcastRoom chan *json.ChatJson
 
 	// Register requests from the clients.
 	Register chan *Client
@@ -27,7 +27,7 @@ type Hubs map[json.RoomIdJson]*Hub
 // NewHubは新しいHubオブジェクトを生成します
 func NewHub(roomId json.RoomIdJson) *Hub {
 	return &Hub{
-		BroadcastRoom: make(chan *json.RoomJson),
+		BroadcastRoom: make(chan *json.ChatJson),
 		Register:      make(chan *Client),
 		Unregister:    make(chan *Client),
 		Clients:       make(map[*Client]bool),
