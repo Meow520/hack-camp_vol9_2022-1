@@ -1,0 +1,47 @@
+package persistance
+
+import (
+	"database/sql"
+	"log"
+
+	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
+	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/repository"
+	db_error "github.com/Doer-org/hack-camp_vol9_2022-1/error/infrastructure"
+)
+
+var _ repository.IChatRepository = &ChatRepository{}
+
+type ChatRepository struct {
+	db *sql.DB
+}
+
+func NewChatRepository(db *sql.DB) *ChatRepository {
+	return &ChatRepository{
+		db: db,
+	}
+}
+
+func (repo *ChatRepository) CreateChat(message string, size string, member_id int, room_id string) (*entity.Chat, error) {
+	statement := "INSERT INTO chats VALUES(?,?,?,?)"
+	stmt, err := repo.db.Prepare(statement)
+	if err != nil {
+		log.Println(err)
+		return nil, db_error.StatementError
+	}
+	defer stmt.Close()
+
+	chat := &entity.Chat{}
+	_, err = stmt.Exec(message, size, member_id, room_id)
+
+	if err != nil {
+		log.Println(err)
+		return nil, db_error.ExecError
+	}
+
+	chat.Message = message
+	chat.Size = size
+	chat.MemberId = member_id
+	chat.RoomId = room_id
+
+	return chat, nil
+}
