@@ -22,7 +22,7 @@ func CreateMemberRepository(db *sql.DB) *MemberRepository {
 }
 
 func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.Member, error) {
-	statement := "INSERT INTO members VALUES(?,?)"
+	statement := "INSERT INTO members (name, room_id) VALUES(?,?)"
 
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {

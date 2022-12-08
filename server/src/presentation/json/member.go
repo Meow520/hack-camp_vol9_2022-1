@@ -4,7 +4,7 @@ import "github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
 
 type MemberJson struct {
 	Name        string `json:"name"`
-	RoomId     string `json:"roomId"`
+	RoomId     string `json:"room_id"`
 }
 
 type MembersJson []MemberJson
