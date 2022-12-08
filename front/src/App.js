@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RoomSetting from "./RoomSetting/RoomSetting";
+import RoomSetting from "./roomSetting/RoomSetting";
 import Chat from "./chat/Chat";
 
 function App() {
