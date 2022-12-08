@@ -1,11 +1,26 @@
 ## Build
-FROM golang:1.17.0-alpine
+FROM golang:1.17-buster AS build
 
 WORKDIR /go/src/github.com/Doer-org/hack-camp_vol9_2022-1
 
-COPY . .
+COPY go.mod ./
+COPY go.sum ./
 
-RUN go get -u github.com/cosmtrek/air
 RUN go mod download
 
-CMD ["air"]
+COPY . .
+
+RUN go build -o /docker-gs-ping
+
+## Deploy
+FROM gcr.io/distroless/base-debian10
+
+WORKDIR /
+
+COPY --from=build /docker-gs-ping /docker-gs-ping
+
+EXPOSE 8080
+
+USER nonroot:nonroot
+
+ENTRYPOINT ["/docker-gs-ping"]
