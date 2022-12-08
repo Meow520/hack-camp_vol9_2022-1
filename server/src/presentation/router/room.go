@@ -8,7 +8,7 @@ import (
 	"github.com/Doer-org/hack-camp_vol9_2022-1/usecase"
 )
 
-func (r Router) InitRoomRouter(db *sql.DB) {
+func (r *Router) InitRoomRouter(db *sql.DB) {
 	repo := persistance.NewRoomRepository(db)
 	uc := usecase.NewRoomUsecase(repo)
 	h := handler.NewRoomHandler(uc)

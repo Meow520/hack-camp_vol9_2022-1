@@ -26,7 +26,7 @@ func NewRoomUsecase(repo repository.IRoomRepository) IRoomUsecase {
 	}
 }
 
-func (uc RoomUsecase) NewRoom(id string, name string, max_member int, member_count int) (*entity.Room, error) {
+func (uc *RoomUsecase) NewRoom(id string, name string, max_member int, member_count int) (*entity.Room, error) {
 	if name == "" {
 		return nil, usecase_error.NameEmptyError
 	}
@@ -52,17 +52,17 @@ func (uc RoomUsecase) NewRoom(id string, name string, max_member int, member_cou
 	return room, err
 }
 
-func (uc RoomUsecase) GetRoomOfID(id string) (*entity.Room, error) {
+func (uc *RoomUsecase) GetRoomOfID(id string) (*entity.Room, error) {
 	room, err := uc.repo.GetRoomOfID(id)
 	return room, err
 }
 
-func (uc RoomUsecase) DeleteAllRoom() error {
+func (uc *RoomUsecase) DeleteAllRoom() error {
 	err := uc.repo.DeleteAllRoom()
 	return err
 }
 
-func (uc RoomUsecase) DeleteRoomOfID(id string) error {
+func (uc *RoomUsecase) DeleteRoomOfID(id string) error {
 	if id == "" {
 		return usecase_error.IdEmptyError
 	}

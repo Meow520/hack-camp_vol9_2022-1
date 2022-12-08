@@ -13,8 +13,8 @@ type RoomsJson []RoomJson
 
 type RoomIdJson string
 
-func RoomEntityToJson(c *entity.Room) RoomJson {
-	return RoomJson{
+func RoomEntityToJson(c *entity.Room) *RoomJson {
+	return &RoomJson{
 		Id:          c.Id,
 		Name:        c.Name,
 		MaxMember:   c.MaxMember,
