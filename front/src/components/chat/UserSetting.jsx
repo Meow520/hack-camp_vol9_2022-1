@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import "../../styles/App.css";
+import { Button } from "../atoms/Button";
+import background from "../../images/triangle.png";
 
-const UserSetting = ({ setName, setIsStart }) => {
+const UserSetting = ({ name, setName, setIsStart }) => {
+  const [error, setError] = useState("");
   const handleStart = () => {
-    setIsStart(true);
+    if (!name) {
+      setError("required!");
+    } else {
+      setError("");
+      setIsStart(true);
+    }
   };
 
   return (
-    <div class="w-screen h-screen bg-slate-300 justify-center flex text-center">
-      <div class="w-1/2 h-128 bg-white my-auto rounded-2xl">
-        <p class="text-6xl py-24 font-bold">User Setting</p>
+    <div
+      className="w-screen h-screen justify-center flex text-center bg-no-repeat bg-cover"
+      style={{ backgroundImage: `url(${background})` }}
+    >
+      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl">
+        <p className="text-6xl py-24 font-bold">User Setting</p>
         <div>
           <input
             type="text"
@@ -19,16 +30,16 @@ const UserSetting = ({ setName, setIsStart }) => {
               setName(e.target.value);
             }}
           />
+          <p className="text-red-500 text-xl">{error}</p>
         </div>
-        <div class="py-20">
-          <button
-            class="text-4xl text-black 
-                    w-1/3 h-24 my-auto
-                    bg-cyan-500 rounded-2xl hover:bg-cyan-300"
+        <div className="py-20">
+          <Button
+            label="chat"
+            color="bg-sky-400 hover:bg-sky-200"
+            type="submit"
             onClick={handleStart}
-          >
-            Chat
-          </button>
+            size="w-64 h-20 text-white text-3xl"
+          />
         </div>
       </div>
     </div>

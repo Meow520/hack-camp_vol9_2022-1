@@ -14,6 +14,7 @@ func main() {
 
 	r := router.NewRouter()
 	r.InitRoomRouter(db)
+	r.InitHealthRouter()
 
 	r.Serve()
 }

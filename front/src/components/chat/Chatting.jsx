@@ -1,11 +1,13 @@
-import React from "react";
-import '../../styles/App.css';
+import { MessageInput } from "./MessageInput";
+import { MessageList } from "./MessageList";
 
-const Chatting = ({name}) => {
-    return (
-        <div>
-            hello, world
-        </div>
-    )
+const Chatting = () => {
+  return (
+    <div>
+      <h1>Simple Chat</h1>
+      <MessageInput />
+      <MessageList />
+    </div>
+  );
 };
-export default Chatting;
+export default Chatting
