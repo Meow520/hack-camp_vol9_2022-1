@@ -64,3 +64,21 @@ func (rh RoomHandler) GetRoomOfID(ctx *gin.Context) {
 		gin.H{"data": roomJson},
 	)
 }
+
+func (rh RoomHandler) DeleteRoomOfID(ctx *gin.Context) {
+	id := ctx.Param("id")
+	err := rh.uc.DeleteRoomOfID(id)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": "success"},
+	)
+}
