@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Chatting from "./Chatting";
-import UserSetting from "./UserSetting";
+import Chatting from "../components/chat/Chatting";
+import UserSetting from "../components/chat/UserSetting";
 
 const Chat = () => {
   const [name, setName] = useState("");
