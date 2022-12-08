@@ -63,6 +63,9 @@ func (uc RoomUsecase) DeleteAllRoom() error {
 }
 
 func (uc RoomUsecase) DeleteRoomOfID(id string) error {
+	if id == "" {
+		return usecase_error.IdEmptyError
+	}
 	err := uc.repo.DeleteRoomOfID(id)
 	return err
 }
