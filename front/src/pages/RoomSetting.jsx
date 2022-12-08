@@ -11,7 +11,7 @@ const RoomSetting = () => {
       className="w-screen h-screen justify-center flex text-center bg-no-repeat bg-cover"
       style={{ backgroundImage: `url(${background})` }}
     >
-      {gettingUrl ? <GetURL /> : <CreateRoom setGettingUrl={setGettingUrl} />};
+      {gettingUrl ? <GetURL /> : <CreateRoom setGettingUrl={setGettingUrl} />}
     </div>
   );
 };
