@@ -13,8 +13,8 @@ const UserSetting = ({ setName, setIsStart }) => {
       className="w-screen h-screen justify-center flex text-center bg-no-repeat bg-cover"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div class="w-1/2 h-128 bg-white my-auto rounded-2xl">
-        <p class="text-6xl py-24 font-bold">User Setting</p>
+      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl">
+        <p className="text-6xl py-24 font-bold">User Setting</p>
         <div>
           <input
             type="text"
@@ -25,7 +25,7 @@ const UserSetting = ({ setName, setIsStart }) => {
             }}
           />
         </div>
-        <div class="py-20">
+        <div className="py-20">
         <Button 
           label="chat"
           color="bg-sky-400 hover:bg-sky-200"
