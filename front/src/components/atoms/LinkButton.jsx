@@ -1,3 +1,10 @@
+// 使い方
+// <LinkButton
+//   label="チャットへ"
+//   color="bg-blue-500 hover:bg-blue-700 text-white"
+//   path="/chat"
+// />
+
 export const LinkButton = ({ label, color, path, disabled }) => {
   const className = `${color} ${"items-center rounded-md px-4 py-2 w-10"}`;
 

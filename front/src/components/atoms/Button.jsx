@@ -1,3 +1,12 @@
+// 使い方
+// <Button 
+//   label="Submit"
+//   color="bg-blue-500 hover:bg-blue-700 text-white"
+//   type="submit"
+//   onClick={() => {console.log('hi')}}
+//   size="w-10"
+// />
+
 export const BaseButton = ({
   label,
   color,
@@ -19,3 +28,4 @@ export const BaseButton = ({
     </button>
   );
 };
+
