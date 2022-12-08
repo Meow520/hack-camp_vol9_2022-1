@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -15,10 +14,6 @@ func NewDB() (*sql.DB, error) {
 	dbDSN, err := config.DSN()
 	if err != nil {
 		return nil, err
-	}
-
-	if os.Getenv("ENVIROMENT") == "prd" {
-		dbDSN = os.Getenv("DSN")
 	}
 
 	db, err := sql.Open("mysql", dbDSN)
