@@ -18,7 +18,7 @@ func NewRoomHandler(uc usecase.IRoomUsecase) *RoomHandler {
 	}
 }
 
-func (rh RoomHandler) NewRoom(ctx *gin.Context) {
+func (rh *RoomHandler) NewRoom(ctx *gin.Context) {
 	var roomjson json.RoomJson
 	if err := ctx.BindJSON(&roomjson); err != nil {
 		ctx.JSON(
@@ -46,7 +46,7 @@ func (rh RoomHandler) NewRoom(ctx *gin.Context) {
 
 }
 
-func (rh RoomHandler) GetRoomOfID(ctx *gin.Context) {
+func (rh *RoomHandler) GetRoomOfID(ctx *gin.Context) {
 	id := ctx.Param("id")
 	room, err := rh.uc.GetRoomOfID(id)
 
@@ -65,7 +65,7 @@ func (rh RoomHandler) GetRoomOfID(ctx *gin.Context) {
 	)
 }
 
-func (rh RoomHandler) DeleteRoomOfID(ctx *gin.Context) {
+func (rh *RoomHandler) DeleteRoomOfID(ctx *gin.Context) {
 	id := ctx.Param("id")
 	err := rh.uc.DeleteRoomOfID(id)
 
