@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CreateRoom from "./components/CreateRoom";
+import RoomSetting from "./components/RoomSetting";
 import UserSetting from "./components/UserSetting";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<CreateRoom />} />
+          <Route path="/" element={<RoomSetting />} />
           <Route path="/usersetting" element={<UserSetting />} />
         </Routes>
       </BrowserRouter>
