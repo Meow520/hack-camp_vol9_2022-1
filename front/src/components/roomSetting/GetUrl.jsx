@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "../../styles/App.css";
 // import QRCode from "qrcode.react";
 
-const GetURL = () => {
-  const id = 1;
+const GetURL = ({id}) => {
   const url = `https://hogehoge.vercel.app/chat/${id}`;
   const [visible, setVisible] = useState(false);
 

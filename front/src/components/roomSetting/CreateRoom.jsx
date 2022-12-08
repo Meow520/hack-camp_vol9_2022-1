@@ -1,11 +1,9 @@
 import React from "react";
 import "../../styles/App.css";
 import { Button } from "../atoms/Button";
+import { $axios } from "../hooks/api/axios";
 
-const CreateRoom = ({ setGettingUrl }) => {
-  const handleSubmit = () => {
-    setGettingUrl(true);
-  };
+const CreateRoom = ({ handleSubmit }) => {
 
   return (
     <div className="w-1/2 h-128 bg-white my-auto rounded-2xl">
@@ -21,13 +19,13 @@ const CreateRoom = ({ setGettingUrl }) => {
           >
             Create
           </button> */}
-        <Button 
+        <Button
           label="create"
           color="bg-sky-400 hover:bg-sky-200"
           type="submit"
           onClick={handleSubmit}
           size="w-64 h-20 text-white text-3xl"
-           />
+        />
       </div>
     </div>
   );
