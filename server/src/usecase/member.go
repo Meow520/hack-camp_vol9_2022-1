@@ -30,6 +30,6 @@ func (uc MemberUsecase) CreateMember(name string, roomId string) (*entity.Member
 		return nil, usecase_error.RoomdIdUsedError
 	}
 
-	member, err = uc.repo.CreateMember(name, roomId)
+	member, err := uc.repo.CreateMember(name, roomId)
 	return member, err
 }
