@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/App.css";
+import { Button } from "../atoms/Button";
 
 const CreateRoom = ({ setGettingUrl }) => {
   const handleSubmit = () => {
@@ -7,11 +8,10 @@ const CreateRoom = ({ setGettingUrl }) => {
   };
 
   return (
-    <div className="w-screen h-screen bg-slate-300 justify-center flex text-center">
-      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl">
-        <p className="text-6xl py-24 font-bold">Create a Room</p>
-        <div className="py-20">
-          <button
+    <div className="w-1/2 h-128 bg-white my-auto rounded-2xl">
+      <p className="text-6xl py-24 font-bold">Create a Room</p>
+      <div className="pb-20">
+        {/* <button
             type="submit"
             onClick={handleSubmit}
             className="text-4xl text-black 
@@ -20,8 +20,14 @@ const CreateRoom = ({ setGettingUrl }) => {
            "
           >
             Create
-          </button>
-        </div>
+          </button> */}
+        <Button 
+          label="create"
+          color="bg-sky-400 hover:bg-sky-200"
+          type="submit"
+          onClick={handleSubmit}
+          size="w-64 h-20 text-white text-3xl"
+           />
       </div>
     </div>
   );

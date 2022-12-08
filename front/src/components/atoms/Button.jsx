@@ -7,7 +7,7 @@
 //   size="w-10"
 // />
 
-export const BaseButton = ({
+export const Button = ({
   label,
   color,
   type,
