@@ -14,7 +14,7 @@ const Chat = () => {
           <Chatting name={name} />
         </RecoilRoot>
       ) : (
-        <UserSetting setName={setName} setIsStart={setIsStart} />
+        <UserSetting setName={setName} name={name} setIsStart={setIsStart} />
       )}
     </>
   );
