@@ -43,6 +43,26 @@ func (h *RoomWsHandler) ConnectWsRoom(ctx *gin.Context) {
 	h.serveWsConnOfHub(hub, ctx.Writer, ctx.Request, roomIdJson)
 }
 
+func (h *RoomWsHandler) DeleteHubOfRoomId(ctx *gin.Context) {
+	roomId := ctx.Param("room_id")
+	roomIdJson := json.RoomIdEntityToJson(roomId)
+
+	// TODO 削除時に既存のクライアントのコネクションが残っているので直す
+	// Hubの削除
+	if err := h.HubsStore.CheckAndDeleteHubOfRoomId(roomIdJson); err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"ok": "delete hub of roomId successful"},
+	)
+
+}
+
 // receiveEventInfoFromConnはクライアントからEvent情報が送られてきたとき、
 // Eventごとに処理を行い、新たなRoom情報をBroadcastRoomInfoに書き込みます
 func (h *RoomWsHandler) receiveEventInfoFromConn(c *Client) {
