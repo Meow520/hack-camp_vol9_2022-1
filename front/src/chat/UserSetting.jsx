@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "../styles/App.css";
 
-const UserSetting = () => {
+const UserSetting = ({ setName, setIsStart }) => {
+  const handleStart = () => {
+    setIsStart(true);
+  };
+
   return (
     <div class="w-screen h-screen bg-slate-300 justify-center flex text-center">
       <div class="w-1/2 h-128 bg-white my-auto rounded-2xl">
@@ -11,6 +15,9 @@ const UserSetting = () => {
             type="text"
             placeholder="user name"
             className="text-2xl w-1/2 h-16 border rounded-md"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           />
         </div>
         <div class="py-20">
@@ -18,6 +25,7 @@ const UserSetting = () => {
             class="text-4xl text-black 
                     w-1/3 h-24 my-auto
                     bg-cyan-500 rounded-2xl hover:bg-cyan-300"
+            onClick={handleStart}
           >
             Chat
           </button>
