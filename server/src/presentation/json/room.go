@@ -30,3 +30,12 @@ func RoomJsonToEntity(j *RoomJson) *entity.Room {
 		MemberCount: j.MemberCount,
 	}
 }
+
+func RoomIdEntityToJson(roomid string) RoomIdJson {
+	return RoomIdJson(roomid)
+}
+
+// json to entity
+func RoomIdJsonToEntity(r RoomIdJson) string {
+	return string(r)
+}

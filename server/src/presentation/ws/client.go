@@ -10,7 +10,7 @@ import (
 type Client struct {
 	Hub          *Hub
 	Conn         *websocket.Conn
-	SendRoomInfo chan *json.RoomJson // Buffered channel of outbound messages.
+	SendRoomInfo chan *json.ChatJson // Buffered channel of outbound messages.
 	RoomId       json.RoomIdJson
 }
 
@@ -25,4 +25,3 @@ func (c *Client) setConnectionConfig() {
 func (c *Client) setWriteDeadline() {
 	c.Conn.SetWriteDeadline(time.Now().Add(writeWait))
 }
-
