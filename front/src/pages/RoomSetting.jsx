@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import GetURL from "./GetUrl";
-import CreateRoom from "./CreateRoom";
+import GetURL from "../components/roomSetting/GetUrl";
+import CreateRoom from "../components/roomSetting/CreateRoom";
 
 const RoomSetting = () => {
   const [gettingUrl, setGettingUrl] = useState(false);

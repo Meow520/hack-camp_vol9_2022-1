@@ -1,7 +1,7 @@
 import "./styles/App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RoomSetting from "./roomSetting/RoomSetting";
-import Chat from "./chat/Chat";
+import RoomSetting from "./pages/RoomSetting";
+import Chat from "./pages/Chat";
 
 function App() {
   return (
