@@ -10,6 +10,7 @@ services:
     volumes:
     - ../src:/go/src/github.com/Doer-org/hack-camp_vol9_2022-1
     environment:
+      - ENVIRONMENT=${ENVIRONMENT}
       - DB_DATABASE=${DB_DATABASE}
       - DB_HOST=${DB_HOST}
       - DB_USER=${DB_USER}
