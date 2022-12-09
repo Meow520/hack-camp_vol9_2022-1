@@ -69,7 +69,7 @@ func (repo *MemberRepository) GetAllMemberOfRoomID(roomId string) (entity.Member
 	err = rows.Err()
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.ExecError
+		return nil, db_error.RowsLoopError
 	}
 
 	return member, nil
