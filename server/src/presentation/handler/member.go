@@ -18,7 +18,7 @@ func CreateMemberHandler(uc usecase.IMemberUsecase) *MemberHandler {
 	}
 }
 
-func (rh MemberHandler) CreateMember(ctx *gin.Context) {
+func (rh *MemberHandler) CreateMember(ctx *gin.Context) {
 	var memberjson json.MemberJson
 	if err := ctx.BindJSON(&memberjson); err != nil {
 		ctx.JSON(

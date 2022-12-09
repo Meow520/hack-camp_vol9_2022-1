@@ -22,7 +22,7 @@ func CreateMemberUsecase(repo repository.IMemberRepository) IMemberUsecase {
 	}
 }
 
-func (uc MemberUsecase) CreateMember(name string, roomId string) (*entity.Member, error) {
+func (uc *MemberUsecase) CreateMember(name string, roomId string) (*entity.Member, error) {
 	if name == "" {
 		return nil, usecase_error.NameEmptyError
 	}
