@@ -83,7 +83,6 @@ func (h *RoomWsHandler) receiveEventInfoFromConn(c *Client) {
 		}
 
 		e := json.ChatJsonToEntity(&eJson)
-
 		// eventを実行して、最新のroomオブジェクトを返す
 		room, err := h.ucChat.CreateChat(e.Message, e.Size, e.MemberId, e.RoomId)
 		if err != nil {

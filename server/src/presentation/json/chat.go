@@ -7,7 +7,7 @@ type ChatJson struct {
 	Message  string `json:"message"`
 	Size     string `json:"size"`
 	MemberId int    `json:"member_id"`
-	RoomId   string `json:"member_count"`
+	RoomId   string `json:"room_id"`
 }
 
 type ChatsJson []RoomJson

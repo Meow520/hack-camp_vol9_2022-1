@@ -14,6 +14,6 @@ var (
 	//chatのエラー
 	MessageEmptyError  = errors.New("message empty")
 	SizeEmptyError     = errors.New("size empty")
-	RoomIdEmptyError   = errors.New("member count failed")
+	RoomIdEmptyError   = errors.New("room id empty")
 	MemberIdEmptyError = errors.New("room id already used")
 )
