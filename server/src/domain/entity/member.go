@@ -5,3 +5,5 @@ type Member struct {
 	Name   string
 	RoomId string
 }
+
+type Members []*Member 

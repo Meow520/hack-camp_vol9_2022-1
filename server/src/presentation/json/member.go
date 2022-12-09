@@ -18,6 +18,15 @@ func MemberEntityToJson(c *entity.Member) *MemberJson {
 	}
 }
 
+func MembersEntityToJson(c entity.Members) *MembersJson {
+	var MembersJson MembersJson
+	for _, member := range c {
+		MembersJson = append(MembersJson, *MemberEntityToJson(member))
+	}
+
+	return &MembersJson
+}
+
 func MemberJsonToEntity(j *MemberJson) *entity.Member {
 	return &entity.Member{
 		Name:   j.Name,

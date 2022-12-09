@@ -15,7 +15,7 @@ type MemberRepository struct {
 	db *sql.DB
 }
 
-func CreateMemberRepository(db *sql.DB) *MemberRepository {
+func NewMemberRepository(db *sql.DB) *MemberRepository {
 	return &MemberRepository{
 		db: db,
 	}
@@ -45,3 +45,32 @@ func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.
 	return member, nil
 }
 
+func (repo *MemberRepository) GetAllMemberOfRoomID(roomId string) (entity.Members, error) {
+
+	rows, err := repo.db.Query("SELECT * FROM members WHERE room_id = ?", roomId)
+	if err != nil {
+		log.Println(err)
+		return nil, db_error.StatementError
+	}
+	defer rows.Close()
+
+	var member entity.Members
+
+	for rows.Next() {
+		m := &entity.Member{}
+		err := rows.Scan(&m.Id, &m.Name, &m.RoomId);
+		if err != nil {
+			log.Println(err)
+			return nil, db_error.RowsScanError
+		}
+		member = append(member, m)
+	}
+
+	err = rows.Err()
+	if err != nil {
+		log.Println(err)
+		return nil, db_error.RowsLoopError
+	}
+
+	return member, nil
+}
