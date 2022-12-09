@@ -14,7 +14,8 @@ type MemberUsecase struct {
 
 type IMemberUsecase interface {
 	CreateMember(name string, roomId string) (*entity.Member, error)
-	GetAllMemberOfRoomID(roomId string) (entity.Members, error)
+	GetAllMembersOfRoomID(roomId string) (entity.Members, error)
+	DeleteAllMembersOfRoomID(roomId string) error
 }
 
 func NewMemberUsecase(repo repository.IMemberRepository) IMemberUsecase {
@@ -35,12 +36,19 @@ func (uc *MemberUsecase) CreateMember(name string, roomId string) (*entity.Membe
 	return member, err
 }
 
-func (uc *MemberUsecase) GetAllMemberOfRoomID(roomId string) (entity.Members, error) {
+func (uc *MemberUsecase) GetAllMembersOfRoomID(roomId string) (entity.Members, error) {
 	if roomId == "" {
 		return nil, usecase_error.RoomIdEmptyError
 	}
-	member, err := uc.repo.GetAllMemberOfRoomID(roomId)
+	member, err := uc.repo.GetAllMembersOfRoomID(roomId)
 	return member, err
 }
 
+func (uc *MemberUsecase) DeleteAllMembersOfRoomID(roomId string) error {
+	if roomId == "" {
+		return usecase_error.RoomIdEmptyError
+	}
+	err := uc.repo.DeleteAllMembersOfRoomID(roomId)
+	return err
+}
 
