@@ -6,4 +6,5 @@ type Chat struct {
 	Size     string
 	MemberId int
 	RoomId   string
+	Score    float64
 }
