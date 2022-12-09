@@ -46,3 +46,22 @@ func (rh *MemberHandler) CreateMember(ctx *gin.Context) {
 
 }
 
+func (rh *MemberHandler) GetAllMemberOfRoomID(ctx *gin.Context) {
+	roomId := ctx.Param("roomId")
+	member, err := rh.uc.GetAllMemberOfRoomID(roomId)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	memberJson := json.MembersEntityToJson(member)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": memberJson},
+	)
+
+}
