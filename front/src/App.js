@@ -1,7 +1,7 @@
 import "./styles/App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RoomSetting from "./RoomSetting/RoomSetting";
-import Chat from "./chat/Chat";
+import RoomSetting from "./pages/RoomSetting";
+import Chat from "./pages/Chat";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<RoomSetting />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:id" element={<Chat />} />
         </Routes>
       </BrowserRouter>
     </div>

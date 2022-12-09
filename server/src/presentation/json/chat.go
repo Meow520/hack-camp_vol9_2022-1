@@ -12,8 +12,8 @@ type ChatJson struct {
 
 type ChatsJson []RoomJson
 
-func ChatEntityToJson(c *entity.Chat) ChatJson {
-	return ChatJson{
+func ChatEntityToJson(c *entity.Chat) *ChatJson {
+	return &ChatJson{
 		Id:       c.Id,
 		Message:  c.Message,
 		Size:     c.Size,

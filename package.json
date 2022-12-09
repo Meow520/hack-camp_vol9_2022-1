@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "qrcode.react": "^3.1.0",
+    "recoil": "^0.7.6",
+    "websocket": "^1.0.34"
+  }
+}
