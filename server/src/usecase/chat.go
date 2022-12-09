@@ -37,7 +37,7 @@ func (pu *ChatUsecase) CreateChat(message string, size string, member_id int, ro
 	}
 
 	if room_id == "" {
-		return nil, usecase_error.SizeEmptyError
+		return nil, usecase_error.RoomIdEmptyError
 	}
 
 	chat, err := pu.repo.CreateChat(message, size, member_id, room_id)
