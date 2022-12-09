@@ -1,49 +1,46 @@
 import React, { useState } from "react";
 import "../../styles/App.css";
 import { Button } from "../atoms/Button";
-import background from "../../images/triangle.png";
+import { FormProvider, useForm } from "react-hook-form";
+import { InputBlock } from "../atoms/InputBlock";
+import { useUserSetting } from "../../hooks/api/useUserSetting";
 
-const UserSetting = ({ name, setName, setIsStart }) => {
-  const [error, setError] = useState("");
-  const handleStart = () => {
-    if (!name) {
-      setError("required!");
-    } else {
-      setError("");
-      setIsStart(true);
-    }
+export const UserSetting = ({ id, name, setName, setIsStart }) => {
+  const { joinRoom } = useUserSetting();
+  const methods = useForm();
+
+  const onSubmit = async (data) => {
+    // APIを叩く
+    await joinRoom(data, id);
   };
 
   return (
-    <div
-      className="w-screen h-screen justify-center flex text-center bg-no-repeat bg-cover"
-      style={{ backgroundImage: `url(${background})` }}
-    >
-      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl">
-        <p className="text-6xl py-24 font-bold">User Setting</p>
-        <div>
-          <input
+    <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10">
+      <p className="text-6xl py-12 font-bold">User Setting</p>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={methods.handleSubmit(onSubmit)}
+          className="max-w-screen-2xl px-4 md:px-8 mx-auto text-left xl:w-2/3"
+          id="createEventForm">
+          <InputBlock
+            text="名前"
+            subText="名前を入力してください"
+            isRequired
+            name="name"
+            options={{ required: "必須項目です" }}
             type="text"
-            placeholder="user name"
-            className="text-2xl w-1/2 h-16 border rounded-md"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
+            placeholder="本田圭佑"
           />
-          <p className="text-red-500 text-xl">{error}</p>
-        </div>
-        <div className="py-20">
-          <Button
-            label="chat"
-            color="bg-sky-400 hover:bg-sky-200"
-            type="submit"
-            onClick={handleStart}
-            size="w-64 h-20 text-white text-3xl"
-          />
-        </div>
-      </div>
+          <div className="text-center mt-10">
+            <Button
+              label="チャットに参加"
+              color="bg-sky-400 hover:bg-sky-200"
+              type="submit"
+              size="w-64 h-20 text-white text-3xl"
+            />
+          </div>
+        </form>
+      </FormProvider>
     </div>
   );
 };
-
-export default UserSetting;
