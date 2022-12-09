@@ -15,7 +15,7 @@ type MemberRepository struct {
 	db *sql.DB
 }
 
-func CreateMemberRepository(db *sql.DB) *MemberRepository {
+func NewMemberRepository(db *sql.DB) *MemberRepository {
 	return &MemberRepository{
 		db: db,
 	}

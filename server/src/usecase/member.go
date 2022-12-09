@@ -16,7 +16,7 @@ type IMemberUsecase interface {
 	CreateMember(name string, roomId string) (*entity.Member, error)
 }
 
-func CreateMemberUsecase(repo repository.IMemberRepository) IMemberUsecase {
+func NewMemberUsecase(repo repository.IMemberRepository) IMemberUsecase {
 	return &MemberUsecase{
 		repo: repo,
 	}

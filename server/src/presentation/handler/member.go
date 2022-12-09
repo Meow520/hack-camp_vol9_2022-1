@@ -12,7 +12,7 @@ type MemberHandler struct {
 	uc usecase.IMemberUsecase
 }
 
-func CreateMemberHandler(uc usecase.IMemberUsecase) *MemberHandler {
+func NewMemberHandler(uc usecase.IMemberUsecase) *MemberHandler {
 	return &MemberHandler{
 		uc: uc,
 	}
