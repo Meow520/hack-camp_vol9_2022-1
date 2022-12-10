@@ -14,11 +14,15 @@ func (r Router) InitRoomRouter(db *sql.DB) {
 
 	repoRoom := persistance.NewRoomRepository(db)
 	ucRoom := usecase.NewRoomUsecase(repoRoom)
-	h := handler.NewRoomHandler(ucRoom)
 
 	repoChat := persistance.NewChatRepository(db)
 	ucChat := usecase.NewChatUsecase(repoChat)
+
+	repoMember := persistance.NewMemberRepository(db)
+	ucMember := usecase.NewMemberUsecase(repoMember)
+
 	hWs := ws.NewRoomWsHandler(ucChat, ucRoom, hubsStore)
+	h := handler.NewRoomHandler(ucRoom, ucChat, ucMember)
 
 	g := r.Engine.Group("/room")
 	g.POST("/create", h.NewRoom)
