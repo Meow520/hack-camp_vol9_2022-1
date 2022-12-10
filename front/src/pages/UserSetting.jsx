@@ -1,21 +1,26 @@
 import React, { useState } from "react";
-import "../../styles/App.css";
-import { Button } from "../atoms/Button";
+import "../styles/App.css";
 import { FormProvider, useForm } from "react-hook-form";
-import { InputBlock } from "../atoms/InputBlock";
-import { useUserSetting } from "../../hooks/api/useUserSetting";
+import { useParams } from "react-router-dom";
+import { useUserSetting } from "../hooks/api/useUserSetting";
+import { InputBlock } from "../components/atoms/InputBlock";
+import { Button } from "../components/atoms/Button";
+import { TriangleContainer } from "../components/layout/TriangleContainer";
 
-export const UserSetting = ({ id, setIsStart }) => {
+
+export const UserSetting = () => {
+  const { id } = useParams();
+
   const { joinRoom } = useUserSetting();
   const methods = useForm();
 
   const onSubmit = async (data) => {
     // APIを叩く
     await joinRoom(data, id);
-    setIsStart(true);
   };
 
   return (
+    <TriangleContainer>
     <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10">
       <p className="text-6xl py-12 font-bold">User Setting</p>
       <FormProvider {...methods}>
@@ -44,5 +49,6 @@ export const UserSetting = ({ id, setIsStart }) => {
         </form>
       </FormProvider>
     </div>
+    </TriangleContainer>
   );
 };
