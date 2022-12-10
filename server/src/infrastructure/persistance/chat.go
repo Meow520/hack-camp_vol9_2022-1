@@ -2,6 +2,7 @@ package persistance
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
@@ -88,7 +89,7 @@ func (repo *ChatRepository) DeleteChatOfRoomId(room_id string) error {
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
-		return db_error.StatementError
+		return fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer stmt.Close()
 
@@ -96,7 +97,7 @@ func (repo *ChatRepository) DeleteChatOfRoomId(room_id string) error {
 
 	if err != nil {
 		log.Println(err)
-		return db_error.ExecError
+		return fmt.Errorf("%v : %v", db_error.ExecError, err)
 	}
 
 	return nil
