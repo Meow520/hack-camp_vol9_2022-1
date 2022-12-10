@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import { ChatContainer } from "../layout/ChatContainer";
 
 export const Chatting = () => {
   //Public API that will echo messages sent to it back to the client
@@ -30,6 +31,7 @@ export const Chatting = () => {
   }[readyState];
 
   return (
+    <ChatContainer>
     <div>
       <button onClick={handleClickChangeSocketUrl}>
         Click Me to change Socket Url
@@ -47,5 +49,6 @@ export const Chatting = () => {
         ))}
       </ul>
     </div>
+    </ChatContainer>
   );
 };
