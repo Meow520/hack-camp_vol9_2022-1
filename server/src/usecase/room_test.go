@@ -151,3 +151,7 @@ func (h *RoomRepositoryMock) DeleteAllRoom() error {
 func (h *RoomRepositoryMock) DeleteRoomOfID(id string) error {
 	return nil
 }
+
+func (h *RoomRepositoryMock) MemberCountPlus(id string) (*entity.Room, error) {
+	return testGetRoom, nil
+}

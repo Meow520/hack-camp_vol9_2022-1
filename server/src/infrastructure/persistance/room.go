@@ -47,6 +47,7 @@ func (repo *RoomRepository) NewRoom(id string, name string, max_member int, memb
 
 	return room, nil
 }
+
 func (repo *RoomRepository) GetRoomOfID(id string) (*entity.Room, error) {
 	statement := "SELECT * FROM rooms WHERE id = ?"
 
@@ -106,4 +107,25 @@ func (repo *RoomRepository) DeleteRoomOfID(id string) error {
 	}
 
 	return nil
+}
+
+func (repo *RoomRepository) MemberCountPlus(id string) (*entity.Room, error) {
+	statement := "UPDATE rooms SET member_count = member_count + 1 where id = ?"
+
+	stmt, err := repo.db.Prepare(statement)
+	if err != nil {
+		log.Println(err)
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
+	}
+	defer stmt.Close()
+
+	room := &entity.Room{}
+	err = stmt.QueryRow(id).Scan(&room.Id, &room.Name, &room.MaxMember, &room.MemberCount)
+
+	if err != nil && err != sql.ErrNoRows {
+		log.Println(err)
+		return nil, fmt.Errorf("%v : %v", db_error.QueryrowError, err)
+	}
+
+	return room, nil
 }

@@ -18,6 +18,7 @@ type IRoomUsecase interface {
 	GetRoomOfID(id string) (*entity.Room, error)
 	DeleteAllRoom() error
 	DeleteRoomOfID(id string) error
+	MemberCountPlus(id string) (*entity.Room, error)
 }
 
 func NewRoomUsecase(repo repository.IRoomRepository) IRoomUsecase {
@@ -72,4 +73,12 @@ func (uc *RoomUsecase) DeleteRoomOfID(id string) error {
 	}
 	err := uc.repo.DeleteRoomOfID(id)
 	return err
+}
+
+func (uc *RoomUsecase) MemberCountPlus(id string) (*entity.Room, error) {
+	if id == "" {
+		return nil, usecase_error.IdEmptyError
+	}
+	room, err := uc.repo.MemberCountPlus(id)
+	return room, err
 }

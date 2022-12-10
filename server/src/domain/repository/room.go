@@ -7,4 +7,5 @@ type IRoomRepository interface {
 	GetRoomOfID(id string) (*entity.Room, error)
 	DeleteAllRoom() error
 	DeleteRoomOfID(id string) error
+	MemberCountPlus(id string) (*entity.Room, error)
 }

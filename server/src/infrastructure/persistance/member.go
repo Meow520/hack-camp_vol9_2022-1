@@ -123,3 +123,5 @@ func (repo *MemberRepository) GetMemberOfId(id int) (*entity.Member, error) {
 
 	return member, nil
 }
+
+

@@ -9,9 +9,13 @@ import (
 )
 
 func (r Router) InitMemberRouter(db *sql.DB) {
-	repo := persistance.NewMemberRepository(db)
-	uc := usecase.NewMemberUsecase(repo)
-	h := handler.NewMemberHandler(uc)
+	repoMember := persistance.NewMemberRepository(db)
+	ucMember := usecase.NewMemberUsecase(repoMember)
+
+	repoRoom := persistance.NewRoomRepository(db)
+	ucRoom := usecase.NewRoomUsecase(repoRoom)
+
+	h := handler.NewMemberHandler(ucMember, ucRoom)
 
 	g := r.Engine.Group("/member")
 	g.POST("/create", h.CreateMember)

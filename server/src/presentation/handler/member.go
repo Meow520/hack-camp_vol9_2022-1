@@ -10,12 +10,14 @@ import (
 )
 
 type MemberHandler struct {
-	uc usecase.IMemberUsecase
+	ucMember usecase.IMemberUsecase
+	ucRoom   usecase.IRoomUsecase
 }
 
-func NewMemberHandler(uc usecase.IMemberUsecase) *MemberHandler {
+func NewMemberHandler(ucMember usecase.IMemberUsecase, ucRoom usecase.IRoomUsecase) *MemberHandler {
 	return &MemberHandler{
-		uc: uc,
+		ucMember: ucMember,
+		ucRoom:   ucRoom,
 	}
 }
 
@@ -29,8 +31,35 @@ func (rh *MemberHandler) CreateMember(ctx *gin.Context) {
 		return
 	}
 
+	room, err := rh.ucRoom.GetRoomOfID(memberjson.RoomId)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	if room.MemberCount >= room.MaxMember {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": "room member is full"},
+		)
+		return
+	}
+
 	member := json.MemberJsonToEntity(&memberjson)
-	member, err := rh.uc.CreateMember(member.Name, member.RoomId)
+	member, err = rh.ucMember.CreateMember(member.Name, member.RoomId)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	_, err = rh.ucRoom.MemberCountPlus(member.RoomId)
 	if err != nil {
 		ctx.JSON(
 			http.StatusBadRequest,
@@ -49,7 +78,7 @@ func (rh *MemberHandler) CreateMember(ctx *gin.Context) {
 
 func (rh *MemberHandler) GetAllMembersOfRoomID(ctx *gin.Context) {
 	roomId := ctx.Param("roomId")
-	member, err := rh.uc.GetAllMembersOfRoomID(roomId)
+	member, err := rh.ucMember.GetAllMembersOfRoomID(roomId)
 
 	if err != nil {
 		ctx.JSON(
@@ -69,7 +98,7 @@ func (rh *MemberHandler) GetAllMembersOfRoomID(ctx *gin.Context) {
 
 func (rh *MemberHandler) DeleteAllMembersOfRoomID(ctx *gin.Context) {
 	roomId := ctx.Param("roomId")
-	err := rh.uc.DeleteAllMembersOfRoomID(roomId)
+	err := rh.ucMember.DeleteAllMembersOfRoomID(roomId)
 
 	if err != nil {
 		ctx.JSON(
@@ -98,7 +127,7 @@ func (rh *MemberHandler) GetMemberOfId(ctx *gin.Context) {
 		return
 	}
 
-	member, err := rh.uc.GetMemberOfId(id)
+	member, err := rh.ucMember.GetMemberOfId(id)
 
 	if err != nil {
 		ctx.JSON(
