@@ -96,3 +96,23 @@ func (repo *ChatRepository) GetAllChat() ([]*entity.Chat, error) {
 
 	return chats, err
 }
+
+func (repo *ChatRepository) DeleteChatOfRoomId(room_id string) error {
+	statement := "DELETE FROM chats WHERE room_id = ?"
+
+	stmt, err := repo.db.Prepare(statement)
+	if err != nil {
+		log.Println(err)
+		return fmt.Errorf("%v : %v", db_error.StatementError, err)
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(room_id)
+
+	if err != nil {
+		log.Println(err)
+		return fmt.Errorf("%v : %v", db_error.ExecError, err)
+	}
+
+	return nil
+}

@@ -15,6 +15,7 @@ func main() {
 	r := router.NewRouter()
 	r.InitRoomRouter(db)
 	r.InitMemberRouter(db)
+	r.InitChatRouter(db)
 	r.InitHealthRouter()
 
 	r.Serve()

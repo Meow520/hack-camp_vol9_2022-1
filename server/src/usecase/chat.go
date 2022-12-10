@@ -16,6 +16,7 @@ type ChatUsecase struct {
 type IChatUsecase interface {
 	CreateChat(message string, size string, member_id int, room_id string, score float64) (*entity.Chat, error)
 	GetAllChat() ([]*entity.Chat, error)
+	DeleteChatOfRoomId(room_id string) error
 }
 
 func NewChatUsecase(repo repository.IChatRepository) IChatUsecase {
@@ -52,7 +53,17 @@ func (pu *ChatUsecase) CreateChat(message string, size string, member_id int, ro
 	chat, err := pu.repo.CreateChat(message, size, member_id, room_id, score)
 	return chat, err
 }
+
 func (pu *ChatUsecase) GetAllChat() ([]*entity.Chat, error) {
 	chat, err := pu.repo.GetAllChat()
 	return chat, err
+}
+
+func (pu *ChatUsecase) DeleteChatOfRoomId(room_id string) error {
+	if room_id == "" {
+		return usecase_error.RoomIdEmptyError
+	}
+
+	err := pu.repo.DeleteChatOfRoomId(room_id)
+	return err
 }
