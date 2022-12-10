@@ -4,6 +4,7 @@ import (
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/repository"
 	usecase_error "github.com/Doer-org/hack-camp_vol9_2022-1/error/usecase"
+	"github.com/Doer-org/hack-camp_vol9_2022-1/utils/api"
 )
 
 var _ IChatUsecase = &ChatUsecase{}
@@ -13,7 +14,7 @@ type ChatUsecase struct {
 }
 
 type IChatUsecase interface {
-	CreateChat(message string, size string, member_id int, room_id string) (*entity.Chat, error)
+	CreateChat(message string, size string, member_id int, room_id string, score float64) (*entity.Chat, error)
 	GetAllChat() ([]*entity.Chat, error)
 }
 
@@ -23,7 +24,7 @@ func NewChatUsecase(repo repository.IChatRepository) IChatUsecase {
 	}
 }
 
-func (pu *ChatUsecase) CreateChat(message string, size string, member_id int, room_id string) (*entity.Chat, error) {
+func (pu *ChatUsecase) CreateChat(message string, size string, member_id int, room_id string, score float64) (*entity.Chat, error) {
 	if message == "" {
 		return nil, usecase_error.MessageEmptyError
 	}
@@ -40,7 +41,15 @@ func (pu *ChatUsecase) CreateChat(message string, size string, member_id int, ro
 		return nil, usecase_error.RoomIdEmptyError
 	}
 
-	chat, err := pu.repo.CreateChat(message, size, member_id, room_id)
+	data, err := api.DoGoogleNLPAPI(message)
+
+	if err != nil {
+		return nil, usecase_error.RoomIdEmptyError
+	}
+
+	score = data.DocumentSentiment.Score
+
+	chat, err := pu.repo.CreateChat(message, size, member_id, room_id, score)
 	return chat, err
 }
 func (pu *ChatUsecase) GetAllChat() ([]*entity.Chat, error) {

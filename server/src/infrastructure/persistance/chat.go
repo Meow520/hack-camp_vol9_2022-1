@@ -21,8 +21,8 @@ func NewChatRepository(db *sql.DB) *ChatRepository {
 	}
 }
 
-func (repo *ChatRepository) CreateChat(message string, size string, member_id int, room_id string) (*entity.Chat, error) {
-	statement := "INSERT INTO chats(message, size, member_id, room_id) VALUES(?,?,?,?)"
+func (repo *ChatRepository) CreateChat(message string, size string, member_id int, room_id string, score float64) (*entity.Chat, error) {
+	statement := "INSERT INTO chats(message, size, member_id, room_id, score) VALUES(?,?,?,?,?)"
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
@@ -31,7 +31,7 @@ func (repo *ChatRepository) CreateChat(message string, size string, member_id in
 	defer stmt.Close()
 
 	chat := &entity.Chat{}
-	res, err := stmt.Exec(message, size, member_id, room_id)
+	res, err := stmt.Exec(message, size, member_id, room_id, score)
 
 	if err != nil {
 		log.Println(err)
@@ -44,6 +44,7 @@ func (repo *ChatRepository) CreateChat(message string, size string, member_id in
 	chat.Size = size
 	chat.MemberId = member_id
 	chat.RoomId = room_id
+	chat.Score = score
 
 	return chat, nil
 }
