@@ -15,7 +15,7 @@ export const Chat = () => {
     <>
       {isStart ? (
         <ChatContainer>
-          <Chatting name={name} />
+          <Chatting name={name} id={id} />
         </ChatContainer>
       ) : (
         <TriangleContainer>

@@ -5,13 +5,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { InputBlock } from "../atoms/InputBlock";
 import { useUserSetting } from "../../hooks/api/useUserSetting";
 
-export const UserSetting = ({ id, name, setName, setIsStart }) => {
+export const UserSetting = ({ id, setIsStart }) => {
   const { joinRoom } = useUserSetting();
   const methods = useForm();
 
   const onSubmit = async (data) => {
     // APIを叩く
     await joinRoom(data, id);
+    setIsStart(true);
   };
 
   return (
@@ -21,7 +22,8 @@ export const UserSetting = ({ id, name, setName, setIsStart }) => {
         <form
           onSubmit={methods.handleSubmit(onSubmit)}
           className="max-w-screen-2xl px-4 md:px-8 mx-auto text-left xl:w-2/3"
-          id="createEventForm">
+          id="createEventForm"
+        >
           <InputBlock
             text="名前"
             subText="名前を入力してください"
