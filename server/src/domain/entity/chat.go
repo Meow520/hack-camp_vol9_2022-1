@@ -11,3 +11,4 @@ type Chat struct {
 	Score     float64
 	CreatedAt time.Time
 }
+type Chats []*Chat

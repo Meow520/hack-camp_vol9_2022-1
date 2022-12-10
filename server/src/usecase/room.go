@@ -53,6 +53,10 @@ func (uc *RoomUsecase) NewRoom(id string, name string, max_member int, member_co
 }
 
 func (uc *RoomUsecase) GetRoomOfID(id string) (*entity.Room, error) {
+	if id == "" {
+		return nil, usecase_error.IdEmptyError
+	}
+
 	room, err := uc.repo.GetRoomOfID(id)
 	return room, err
 }
