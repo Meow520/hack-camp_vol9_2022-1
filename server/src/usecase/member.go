@@ -30,7 +30,7 @@ func (uc *MemberUsecase) CreateMember(name string, roomId string) (*entity.Membe
 		return nil, usecase_error.NameEmptyError
 	}
 	if roomId == "" {
-		return nil, usecase_error.RoomdIdEmptyError
+		return nil, usecase_error.RoomIdEmptyError
 	}
 
 	member, err := uc.repo.CreateMember(name, roomId)
