@@ -1,11 +1,11 @@
 import { $axios } from "./axios";
 
 export const useUserSetting = () => {
-  const joinRoom = async (data) => {
+  const joinRoom = async (data, id) => {
     await $axios
       .post("/member/create", {
         name: data.name,
-        roomId: data.roomId,
+        room_id: id,
       })
       .then((res) => {
         //画面遷移するならここでnavigate
