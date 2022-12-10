@@ -33,8 +33,15 @@ func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.
 	defer stmt.Close()
 
 	member := &entity.Member{}
-	_, err = stmt.Exec(name, roomId)
+	res, err := stmt.Exec(name, roomId)
 
+	id, err := res.LastInsertId()
+
+	if err != nil {
+		return nil, fmt.Errorf("%v : %v", db_error.LastInsertError, err)
+	}
+
+	member.Id = int(id)
 	member.Name = name
 	member.RoomId = roomId
 
@@ -76,8 +83,6 @@ func (repo *MemberRepository) GetAllMembersOfRoomID(roomId string) (entity.Membe
 	return member, nil
 }
 
-
-
 func (repo *MemberRepository) DeleteAllMembersOfRoomID(roomId string) error {
 	statement := "DELETE FROM members WHERE room_id = ?"
 
@@ -97,4 +102,3 @@ func (repo *MemberRepository) DeleteAllMembersOfRoomID(roomId string) error {
 
 	return nil
 }
-
