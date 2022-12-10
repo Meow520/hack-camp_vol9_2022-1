@@ -4,10 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
 	usecase_error "github.com/Doer-org/hack-camp_vol9_2022-1/error/usecase"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_CreateChat(t *testing.T) {
@@ -79,6 +78,9 @@ func Test_CreateChat(t *testing.T) {
 			_, err := chatusecase.CreateChat(tt.reqmessage, tt.reqsize, tt.reqmemberId, tt.reqroomId, tt.reqScore)
 
 			assert.Equal(t, err, tt.wantErr)
+			if err != tt.wantErr {
+				t.Errorf("TestUsecase_NewRoom code Error : want %s but got %s", tt.wantErr, err)
+			}
 		})
 	}
 }
