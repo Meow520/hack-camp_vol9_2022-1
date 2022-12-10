@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export const MessageInput = ({ member_id, room_id, sendMessage }) => {
   const [text, setText] = useState("");
   const [size, setSize] = useState("small");
+  const inputRef = useRef();
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     const json = JSON.stringify({
       message: text,
       size: size,
@@ -13,8 +14,17 @@ export const MessageInput = ({ member_id, room_id, sendMessage }) => {
       score: 0,
     });
     sendMessage(json);
-    console.log(json);
-  }, []);
+    clear();
+  };
+  const clear = () => {
+    setText("");
+    inputRef.current.value = "";
+  };
+  const handleKeyDown = (e) => {
+    if (e.nativeEvent.isComposing || e.key !== "Enter") return;
+    handleSubmit(e);
+  };
+
   return (
     <div className="mb-5 w-screen">
       <input
@@ -23,13 +33,9 @@ export const MessageInput = ({ member_id, room_id, sendMessage }) => {
         onChange={(e) => {
           setText(e.target.value);
         }}
+        ref={inputRef}
+        onKeyDown={handleKeyDown}
       />
-      <button
-        className="text-4xl p-3 bg-violet-400 text-white rounded-lg ml-5 h-10 text-center align-middle"
-        onClick={handleSubmit}
-      >
-        Sent
-      </button>
     </div>
   );
 };
