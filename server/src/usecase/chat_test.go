@@ -78,9 +78,34 @@ func Test_CreateChat(t *testing.T) {
 			_, err := chatusecase.CreateChat(tt.reqmessage, tt.reqsize, tt.reqmemberId, tt.reqroomId, tt.reqScore)
 
 			assert.Equal(t, err, tt.wantErr)
-			if err != tt.wantErr {
-				t.Errorf("TestUsecase_NewRoom code Error : want %s but got %s", tt.wantErr, err)
-			}
+		})
+	}
+}
+
+func Test_DeleteChatOfRoomId(t *testing.T) {
+	tests := []struct {
+		name    string
+		reqId   string
+		wantErr error
+	}{
+		{
+			name:    "正常に動作した場合",
+			reqId:   "testId",
+			wantErr: nil,
+		},
+		{
+			name:    "idが空なら id empty error",
+			reqId:   "",
+			wantErr: usecase_error.RoomIdEmptyError,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			chatusecase := NewChatUsecase(&ChatRepositoryMock{})
+			err := chatusecase.DeleteChatOfRoomId(tt.reqId)
+
+			assert.Equal(t, err, tt.wantErr)
 		})
 	}
 }

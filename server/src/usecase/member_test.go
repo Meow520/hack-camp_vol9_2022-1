@@ -47,6 +47,96 @@ func Test_CreateMember(t *testing.T) {
 	}
 }
 
+func Test_GetAllMembersOfRoomID(t *testing.T) {
+	tests := []struct {
+		name      string
+		reqRoomId string
+		wantErr   error
+	}{
+		{
+			name:      "正常に動作した場合",
+			reqRoomId: "testRoomId",
+			wantErr:   nil,
+		},
+		{
+			name:      "idが空なら id empty error",
+			reqRoomId: "",
+			wantErr:   usecase_error.RoomIdEmptyError,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			memberusecase := NewMemberUsecase(&MemberRepositoryMock{})
+			_, err := memberusecase.GetAllMembersOfRoomID(tt.reqRoomId)
+
+			if !errors.Is(err, tt.wantErr) {
+				t.Errorf("TestUsecase_CreateMember code Error : want %s but got %s", tt.wantErr, err)
+			}
+		})
+	}
+}
+
+func Test_DeleteAllMembersOfRoomID(t *testing.T) {
+	tests := []struct {
+		name      string
+		reqRoomId string
+		wantErr   error
+	}{
+		{
+			name:      "正常に動作した場合",
+			reqRoomId: "testRoomId",
+			wantErr:   nil,
+		},
+		{
+			name:      "idが空なら id empty error",
+			reqRoomId: "",
+			wantErr:   usecase_error.RoomIdEmptyError,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			memberusecase := NewMemberUsecase(&MemberRepositoryMock{})
+			err := memberusecase.DeleteAllMembersOfRoomID(tt.reqRoomId)
+
+			if !errors.Is(err, tt.wantErr) {
+				t.Errorf("TestUsecase_CreateMember code Error : want %s but got %s", tt.wantErr, err)
+			}
+		})
+	}
+}
+
+func Test_GetMemberOfId(t *testing.T) {
+	tests := []struct {
+		name    string
+		reqId   int
+		wantErr error
+	}{
+		{
+			name:    "正常に動作した場合",
+			reqId:   1,
+			wantErr: nil,
+		},
+		{
+			name:    "idが空なら id empty error",
+			reqId:   0,
+			wantErr: usecase_error.IdEmptyError,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			memberusecase := NewMemberUsecase(&MemberRepositoryMock{})
+			_, err := memberusecase.GetMemberOfId(tt.reqId)
+
+			if !errors.Is(err, tt.wantErr) {
+				t.Errorf("TestUsecase_CreateMember code Error : want %s but got %s", tt.wantErr, err)
+			}
+		})
+	}
+}
+
 type MemberRepositoryMock struct{}
 
 var (
