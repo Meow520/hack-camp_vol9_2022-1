@@ -12,7 +12,8 @@ export const Chatting = ({ id }) => {
 
   useEffect(() => {
     if (lastMessage !== null) {
-      setMessageHistory((prev) => prev.concat(lastMessage));
+      const message = JSON.parse(lastMessage.data);
+      setMessageHistory((prev) => prev.concat(message));
       console.log(lastMessage.data);
     }
   }, [lastMessage, setMessageHistory]);
@@ -26,9 +27,10 @@ export const Chatting = ({ id }) => {
   const handleClickSendMessage = useCallback(() => {
     const json = JSON.stringify({
       message: "Hello",
-      size: 5,
-      member_id: "ablidfcb",
+      size: "small",
+      member_id: 100,
       room_id: id,
+      score: 0,
     });
     sendMessage(json);
     console.log(json);
@@ -44,26 +46,18 @@ export const Chatting = ({ id }) => {
 
   return (
     <ChatContainer>
-      <div className="w-screen">
-        <div>
-          <button
-            onClick={handleClickSendMessage}
-            disabled={readyState !== ReadyState.OPEN}
-          >
-            Click Me to send 'Hello'
-          </button>
-          <span>The WebSocket is currently {connectionStatus}</span>
-          {lastMessage ? <span>Last message: {lastMessage.data}</span> : null}
+      <div className="w-screen h-screen">
+        <span>The WebSocket is currently {connectionStatus}</span>
+        <div className="w-5/6 h-5/6 mx-auto bg-white my-5">
           <ul>
-            {messageHistory.map((message, idx) => (
-              <div key={idx}>
-                {/* <p className="text-lg">{data.name}</p> */}
-                <p className="text-2xl">{message}</p>
-              </div>
+            {messageHistory.map((data, idx) => (
+              <span key={idx}>{data ? data.message : null}</span>
             ))}
           </ul>
         </div>
-        <MessageInput />
+        <div className="flex justify-center">
+          <MessageInput />
+        </div>
       </div>
     </ChatContainer>
   );
