@@ -3,7 +3,6 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Doer-org/hack-camp_vol9_2022-1/presentation/json"
 	"github.com/Doer-org/hack-camp_vol9_2022-1/usecase"
 	"github.com/gin-gonic/gin"
 )
@@ -12,14 +11,14 @@ type ChatHandler struct {
 	uc usecase.IChatUsecase
 }
 
-func CreateChatHandler(uc usecase.IMemberUsecase) *ChatHandler {
+func NewChatHandler(uc usecase.IChatUsecase) *ChatHandler {
 	return &ChatHandler{
 		uc: uc,
 	}
 }
 
 func (rh *ChatHandler) DeleteChatOfRoomId(ctx *gin.Context) {
-	id := ctx.Param("id")
+	id := ctx.Param("roomId")
 	err := rh.uc.DeleteChatOfRoomId(id)
 
 	if err != nil {
