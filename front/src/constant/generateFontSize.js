@@ -1,4 +1,5 @@
 export const generateFontSize = ({ score }) => {
+  console.log("score", score);
   if (score < 0.3) {
     return "text-md text-red-400";
   } else if (score < 0.7) {

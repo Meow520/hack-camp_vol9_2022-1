@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export const MessageInput = ({ member_id, room_id, sendMessage }) => {
+export const MessageInput = ({ member_id, room_id, sendMessage, messageHistory }) => {
   const [text, setText] = useState("");
   const [size, setSize] = useState("small");
   const inputRef = useRef();
 
-  const handleSubmit = () => {
+  const handleSubmit = (messageHistory) => {
     const json = JSON.stringify({
       message: text,
       size: size,
@@ -14,8 +14,8 @@ export const MessageInput = ({ member_id, room_id, sendMessage }) => {
       score: 0
     });
     sendMessage(json);
-    console.log(json);
     clear();
+
   };
   const clear = () => {
     setText("");
@@ -25,6 +25,8 @@ export const MessageInput = ({ member_id, room_id, sendMessage }) => {
     if (e.nativeEvent.isComposing || e.key !== "Enter") return;
     handleSubmit(e);
   };
+
+  
 
   return (
     <div className="mb-5 w-screen">
