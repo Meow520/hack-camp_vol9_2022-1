@@ -2,6 +2,7 @@ package persistance
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
@@ -27,7 +28,7 @@ func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.StatementError
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer stmt.Close()
 
@@ -39,7 +40,7 @@ func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.
 
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.ExecError
+		return nil, fmt.Errorf("%v : %v", db_error.ExecError, err)
 	}
 
 	return member, nil
@@ -50,7 +51,7 @@ func (repo *MemberRepository) GetAllMemberOfRoomID(roomId string) (entity.Member
 	rows, err := repo.db.Query("SELECT * FROM members WHERE room_id = ?", roomId)
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.StatementError
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer rows.Close()
 
@@ -58,10 +59,10 @@ func (repo *MemberRepository) GetAllMemberOfRoomID(roomId string) (entity.Member
 
 	for rows.Next() {
 		m := &entity.Member{}
-		err := rows.Scan(&m.Id, &m.Name, &m.RoomId);
+		err := rows.Scan(&m.Id, &m.Name, &m.RoomId)
 		if err != nil {
 			log.Println(err)
-			return nil, db_error.RowsScanError
+			return nil, fmt.Errorf("%v : %v", db_error.RowsScanError, err)
 		}
 		member = append(member, m)
 	}
@@ -69,7 +70,7 @@ func (repo *MemberRepository) GetAllMemberOfRoomID(roomId string) (entity.Member
 	err = rows.Err()
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.RowsLoopError
+		return nil, fmt.Errorf("%v : %v", db_error.RowsLoopError, err)
 	}
 
 	return member, nil
