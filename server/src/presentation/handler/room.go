@@ -9,12 +9,16 @@ import (
 )
 
 type RoomHandler struct {
-	uc usecase.IRoomUsecase
+	ucRoom   usecase.IRoomUsecase
+	ucChat   usecase.IChatUsecase
+	ucMember usecase.IMemberUsecase
 }
 
-func NewRoomHandler(uc usecase.IRoomUsecase) *RoomHandler {
+func NewRoomHandler(ucRoom usecase.IRoomUsecase, ucChat usecase.IChatUsecase, ucMember usecase.IMemberUsecase) *RoomHandler {
 	return &RoomHandler{
-		uc: uc,
+		ucRoom:   ucRoom,
+		ucChat:   ucChat,
+		ucMember: ucMember,
 	}
 }
 
@@ -29,7 +33,7 @@ func (rh *RoomHandler) NewRoom(ctx *gin.Context) {
 	}
 
 	room := json.RoomJsonToEntity(&roomjson)
-	room, err := rh.uc.NewRoom(room.Id, room.Name, room.MaxMember, room.MemberCount)
+	room, err := rh.ucRoom.NewRoom(room.Id, room.Name, room.MaxMember, room.MemberCount)
 	if err != nil {
 		ctx.JSON(
 			http.StatusBadRequest,
@@ -48,7 +52,7 @@ func (rh *RoomHandler) NewRoom(ctx *gin.Context) {
 
 func (rh *RoomHandler) GetRoomOfID(ctx *gin.Context) {
 	id := ctx.Param("id")
-	room, err := rh.uc.GetRoomOfID(id)
+	room, err := rh.ucRoom.GetRoomOfID(id)
 
 	if err != nil {
 		ctx.JSON(
@@ -67,7 +71,27 @@ func (rh *RoomHandler) GetRoomOfID(ctx *gin.Context) {
 
 func (rh *RoomHandler) DeleteRoomOfID(ctx *gin.Context) {
 	id := ctx.Param("id")
-	err := rh.uc.DeleteRoomOfID(id)
+	err := rh.ucRoom.DeleteRoomOfID(id)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	err = rh.ucChat.DeleteChatOfRoomId(id)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	err = rh.ucMember.DeleteAllMembersOfRoomID(id)
 
 	if err != nil {
 		ctx.JSON(
