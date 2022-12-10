@@ -46,7 +46,7 @@ func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.
 	return member, nil
 }
 
-func (repo *MemberRepository) GetAllMemberOfRoomID(roomId string) (entity.Members, error) {
+func (repo *MemberRepository) GetAllMembersOfRoomID(roomId string) (entity.Members, error) {
 
 	rows, err := repo.db.Query("SELECT * FROM members WHERE room_id = ?", roomId)
 	if err != nil {
@@ -75,3 +75,26 @@ func (repo *MemberRepository) GetAllMemberOfRoomID(roomId string) (entity.Member
 
 	return member, nil
 }
+
+
+
+func (repo *MemberRepository) DeleteAllMembersOfRoomID(roomId string) error {
+	statement := "DELETE FROM members WHERE room_id = ?"
+
+	stmt, err := repo.db.Prepare(statement)
+	if err != nil {
+		log.Println(err)
+		return db_error.StatementError
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(roomId)
+
+	if err != nil {
+		log.Println(err)
+		return db_error.ExecError
+	}
+
+	return nil
+}
+

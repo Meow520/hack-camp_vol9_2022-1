@@ -46,9 +46,9 @@ func (rh *MemberHandler) CreateMember(ctx *gin.Context) {
 
 }
 
-func (rh *MemberHandler) GetAllMemberOfRoomID(ctx *gin.Context) {
+func (rh *MemberHandler) GetAllMembersOfRoomID(ctx *gin.Context) {
 	roomId := ctx.Param("roomId")
-	member, err := rh.uc.GetAllMemberOfRoomID(roomId)
+	member, err := rh.uc.GetAllMembersOfRoomID(roomId)
 
 	if err != nil {
 		ctx.JSON(
@@ -62,6 +62,25 @@ func (rh *MemberHandler) GetAllMemberOfRoomID(ctx *gin.Context) {
 	ctx.JSON(
 		http.StatusOK,
 		gin.H{"data": memberJson},
+	)
+
+}
+
+func (rh *MemberHandler) DeleteAllMembersOfRoomID(ctx *gin.Context) {
+	roomId := ctx.Param("roomId")
+	err := rh.uc.DeleteAllMembersOfRoomID(roomId)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": "success"},
 	)
 
 }
