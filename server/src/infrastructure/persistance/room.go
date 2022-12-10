@@ -2,6 +2,7 @@ package persistance
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
@@ -27,7 +28,7 @@ func (repo *RoomRepository) NewRoom(id string, name string, max_member int, memb
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.StatementError
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer stmt.Close()
 
@@ -41,7 +42,7 @@ func (repo *RoomRepository) NewRoom(id string, name string, max_member int, memb
 
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.ExecError
+		return nil, fmt.Errorf("%v : %v", db_error.ExecError, err)
 	}
 
 	return room, nil
@@ -52,7 +53,7 @@ func (repo *RoomRepository) GetRoomOfID(id string) (*entity.Room, error) {
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.StatementError
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer stmt.Close()
 
@@ -61,7 +62,7 @@ func (repo *RoomRepository) GetRoomOfID(id string) (*entity.Room, error) {
 
 	if err != nil && err != sql.ErrNoRows {
 		log.Println(err)
-		return nil, db_error.QueryrowError
+		return nil, fmt.Errorf("%v : %v", db_error.QueryrowError, err)
 	}
 
 	return room, nil
@@ -73,7 +74,7 @@ func (repo *RoomRepository) DeleteAllRoom() error {
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
-		return db_error.StatementError
+		return fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer stmt.Close()
 
@@ -81,7 +82,7 @@ func (repo *RoomRepository) DeleteAllRoom() error {
 
 	if err != nil {
 		log.Println(err)
-		return db_error.ExecError
+		return fmt.Errorf("%v : %v", db_error.ExecError, err)
 	}
 
 	return nil
@@ -93,7 +94,7 @@ func (repo *RoomRepository) DeleteRoomOfID(id string) error {
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
-		return db_error.StatementError
+		return fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer stmt.Close()
 
@@ -101,7 +102,7 @@ func (repo *RoomRepository) DeleteRoomOfID(id string) error {
 
 	if err != nil {
 		log.Println(err)
-		return db_error.ExecError
+		return fmt.Errorf("%v : %v", db_error.ExecError, err)
 	}
 
 	return nil

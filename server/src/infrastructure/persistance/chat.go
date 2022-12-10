@@ -2,6 +2,7 @@ package persistance
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
@@ -26,7 +27,7 @@ func (repo *ChatRepository) CreateChat(message string, size string, member_id in
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.StatementError
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 	defer stmt.Close()
 
@@ -35,9 +36,13 @@ func (repo *ChatRepository) CreateChat(message string, size string, member_id in
 
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.ExecError
+		return nil, fmt.Errorf("%v : %v", db_error.ExecError, err)
 	}
 	id, err := res.LastInsertId()
+
+	if err != nil {
+		return nil, fmt.Errorf("%v : %v", db_error.LastInsertError, err)
+	}
 
 	chat.Id = int(id)
 	chat.Message = message
@@ -55,13 +60,17 @@ func (repo *ChatRepository) GetAllChat() ([]*entity.Chat, error) {
 
 	if err != nil {
 		log.Println(err)
-		return nil, db_error.StatementError
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
 	}
 
 	defer stmt.Close()
 
 	var chats []*entity.Chat
 	rows, err := stmt.Query()
+
+	if err != nil {
+		return nil, fmt.Errorf("%v : %v", db_error.QueryrowError, err)
+	}
 
 	for rows.Next() {
 		chat := &entity.Chat{}
@@ -73,10 +82,16 @@ func (repo *ChatRepository) GetAllChat() ([]*entity.Chat, error) {
 			&chat.MemberId,
 		); err != nil {
 			log.Println(err)
-			return nil, db_error.RowsScanError
+			return nil, fmt.Errorf("%v : %v", db_error.RowsScanError, err)
 		}
 
 		chats = append(chats, chat)
+	}
+
+	err = rows.Err()
+	if err != nil {
+		log.Println(err)
+		return nil, fmt.Errorf("%v : %v", db_error.RowsLoopError, err)
 	}
 
 	return chats, err
