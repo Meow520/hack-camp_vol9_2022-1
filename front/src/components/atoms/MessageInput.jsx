@@ -11,9 +11,10 @@ export const MessageInput = ({ member_id, room_id, sendMessage }) => {
       size: size,
       member_id: member_id,
       room_id: room_id,
-      score: 0,
+      score: 0
     });
     sendMessage(json);
+    console.log(json);
     clear();
   };
   const clear = () => {
