@@ -16,5 +16,6 @@ func (r Router) InitMemberRouter(db *sql.DB) {
 	g := r.Engine.Group("/member")
 	g.POST("/create", h.CreateMember)
 	g.GET("/room/:roomId", h.GetAllMembersOfRoomID)
+	g.GET("/:id", h.GetMemberOfId)
 	g.DELETE("/room/:roomId", h.DeleteAllMembersOfRoomID)
 }

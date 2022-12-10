@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/Doer-org/hack-camp_vol9_2022-1/presentation/json"
 	"github.com/Doer-org/hack-camp_vol9_2022-1/usecase"
@@ -83,4 +84,33 @@ func (rh *MemberHandler) DeleteAllMembersOfRoomID(ctx *gin.Context) {
 		gin.H{"data": "success"},
 	)
 
+}
+
+func (rh *MemberHandler) GetMemberOfId(ctx *gin.Context) {
+	idString := ctx.Param("id")
+	id, err := strconv.Atoi(idString)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	member, err := rh.uc.GetMemberOfId(id)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	memberJson := json.MemberEntityToJson(member)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": memberJson},
+	)
 }

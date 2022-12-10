@@ -102,3 +102,24 @@ func (repo *MemberRepository) DeleteAllMembersOfRoomID(roomId string) error {
 
 	return nil
 }
+
+func (repo *MemberRepository) GetMemberOfId(id int) (*entity.Member, error) {
+	statement := "SELECT * FROM members WHERE id = ?"
+
+	stmt, err := repo.db.Prepare(statement)
+	if err != nil {
+		log.Println(err)
+		return nil, fmt.Errorf("%v : %v", db_error.StatementError, err)
+	}
+	defer stmt.Close()
+
+	member := &entity.Member{}
+	err = stmt.QueryRow(id).Scan(&member.Id, &member.Name, &member.RoomId)
+
+	if err != nil && err != sql.ErrNoRows {
+		log.Println(err)
+		return nil, fmt.Errorf("%v : %v", db_error.QueryrowError, err)
+	}
+
+	return member, nil
+}

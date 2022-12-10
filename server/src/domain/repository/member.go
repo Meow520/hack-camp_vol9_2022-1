@@ -6,4 +6,5 @@ type IMemberRepository interface {
 	CreateMember(name string, roomId string) (*entity.Member, error)
 	GetAllMembersOfRoomID(roomId string) (entity.Members, error)
 	DeleteAllMembersOfRoomID(roomId string) error
+	GetMemberOfId(id int) (*entity.Member, error)
 }

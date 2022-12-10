@@ -16,6 +16,7 @@ type IMemberUsecase interface {
 	CreateMember(name string, roomId string) (*entity.Member, error)
 	GetAllMembersOfRoomID(roomId string) (entity.Members, error)
 	DeleteAllMembersOfRoomID(roomId string) error
+	GetMemberOfId(id int) (*entity.Member, error)
 }
 
 func NewMemberUsecase(repo repository.IMemberRepository) IMemberUsecase {
@@ -52,3 +53,11 @@ func (uc *MemberUsecase) DeleteAllMembersOfRoomID(roomId string) error {
 	return err
 }
 
+func (uc *MemberUsecase) GetMemberOfId(id int) (*entity.Member, error) {
+	if id == 0 {
+		return nil, usecase_error.IdEmptyError
+	}
+
+	member, err := uc.repo.GetMemberOfId(id)
+	return member, err
+}
