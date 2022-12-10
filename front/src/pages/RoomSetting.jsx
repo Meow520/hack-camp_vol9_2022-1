@@ -3,6 +3,7 @@ import { TriangleContainer } from "../components/layout/TriangleContainer";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRoomSetting } from "../hooks/api/useRoomSetting";
 import { InputBlock } from "../components/atoms/InputBlock";
+import { useState } from "react";
 
 export const RoomSetting = () => {
   const { createRoom } = useRoomSetting();
@@ -10,7 +11,13 @@ export const RoomSetting = () => {
 
   const onSubmit = async (data) => {
     // APIを叩く
-    await createRoom(data);
+    const submitData = {
+      "name":data.name,
+      "max_member":Number(data.max_member),
+      "member_count":1
+    }
+    data.memberCount = 1;
+    await createRoom(submitData);
   };
 
   return (
@@ -21,7 +28,8 @@ export const RoomSetting = () => {
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
             className="max-w-screen-2xl px-4 md:px-8 mx-auto text-left xl:w-2/3"
-            id="createEventForm">
+            id="createEventForm"
+          >
             <InputBlock
               text="チャット名"
               subText="チャットの名前を入力してください"
@@ -35,7 +43,7 @@ export const RoomSetting = () => {
               text="人数"
               subText="参加者の最大人数を入力してください"
               isRequired
-              name="maxMember"
+              name="max_member"
               options={{ required: "必須項目です" }}
               type="number"
               unit="人"

@@ -5,16 +5,18 @@ export const useRoomSetting = () => {
   const navigate = useNavigate();
 
   const createRoom = async (data) => {
+    console.log(data)
     await $axios
       .post("/room/create", data)
       .then((res) => {
         console.log(res);
         navigate("/complete", {
-          state: { id: res.data.id },
+          state: { id: res.data.data.id,
+          name: res.data.data.name },
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.log("err:", err);
       });
   };
   return { createRoom };
