@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/entity"
 	"github.com/Doer-org/hack-camp_vol9_2022-1/domain/repository"
@@ -23,7 +24,7 @@ func NewChatRepository(db *sql.DB) *ChatRepository {
 }
 
 func (repo *ChatRepository) CreateChat(message string, size string, member_id int, room_id string, score float64) (*entity.Chat, error) {
-	statement := "INSERT INTO chats(message, size, member_id, room_id, score) VALUES(?,?,?,?,?)"
+	statement := "INSERT INTO chats(message, size, member_id, room_id, score, created_at) VALUES(?,?,?,?,?,?)"
 	stmt, err := repo.db.Prepare(statement)
 	if err != nil {
 		log.Println(err)
@@ -32,7 +33,7 @@ func (repo *ChatRepository) CreateChat(message string, size string, member_id in
 	defer stmt.Close()
 
 	chat := &entity.Chat{}
-	res, err := stmt.Exec(message, size, member_id, room_id, score)
+	res, err := stmt.Exec(message, size, member_id, room_id, score, time.Now())
 
 	if err != nil {
 		log.Println(err)
@@ -50,6 +51,7 @@ func (repo *ChatRepository) CreateChat(message string, size string, member_id in
 	chat.MemberId = member_id
 	chat.RoomId = room_id
 	chat.Score = score
+	chat.CreatedAt = time.Now()
 
 	return chat, nil
 }
@@ -80,6 +82,7 @@ func (repo *ChatRepository) GetAllChat() ([]*entity.Chat, error) {
 			&chat.Size,
 			&chat.RoomId,
 			&chat.MemberId,
+			&chat.CreatedAt,
 		); err != nil {
 			log.Println(err)
 			return nil, fmt.Errorf("%v : %v", db_error.RowsScanError, err)

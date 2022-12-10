@@ -35,6 +35,11 @@ func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.
 	member := &entity.Member{}
 	res, err := stmt.Exec(name, roomId)
 
+	if err != nil {
+		log.Println(err)
+		return nil, fmt.Errorf("%v : %v", db_error.ExecError, err)
+	}
+
 	id, err := res.LastInsertId()
 
 	if err != nil {
@@ -44,11 +49,6 @@ func (repo *MemberRepository) CreateMember(name string, roomId string) (*entity.
 	member.Id = int(id)
 	member.Name = name
 	member.RoomId = roomId
-
-	if err != nil {
-		log.Println(err)
-		return nil, fmt.Errorf("%v : %v", db_error.ExecError, err)
-	}
 
 	return member, nil
 }
