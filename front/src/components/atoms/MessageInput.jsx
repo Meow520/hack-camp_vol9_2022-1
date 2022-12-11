@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export const MessageInput = ({ member_id, room_id, sendMessage, messageHistory }) => {
+export const MessageInput = ({ room_id, sendMessage, messageHistory, userId }) => {
   const [text, setText] = useState("");
   const [size, setSize] = useState("small");
   const inputRef = useRef();
@@ -9,7 +9,7 @@ export const MessageInput = ({ member_id, room_id, sendMessage, messageHistory }
     const json = JSON.stringify({
       message: text,
       size: size,
-      member_id: member_id,
+      member_id: userId,
       room_id: room_id,
       score: 0
     });

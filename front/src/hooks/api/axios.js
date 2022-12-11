@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const $axios = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app",
 });

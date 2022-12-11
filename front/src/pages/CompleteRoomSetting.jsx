@@ -7,7 +7,7 @@ export const CompleteRoomSetting = () => {
   //idを取得
   const id = location.state.id;
   const name = location.state.name;
-  const url = `http://localhost:3000/join/${id}`;
+  const url = `https://kie-chat.vercel.app/join/${id}`;
   const [visible, setVisible] = useState(false);
 
   const copy = async () => {
