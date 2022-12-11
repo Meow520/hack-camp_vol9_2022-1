@@ -18,7 +18,6 @@ export const Header = ({ id }) => {
         .catch((err) => {
           console.log("err", err);
         });
-      console.log(response.data);
       return response.data;
     };
     const getRoom = async () => {
@@ -31,7 +30,6 @@ export const Header = ({ id }) => {
         .catch((err) => {
           console.log("err", err);
         });
-      console.log(response.data);
       return response.data;
     };
     getRoom();
