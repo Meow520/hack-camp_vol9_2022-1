@@ -17,7 +17,7 @@ func Test_NewRoom(t *testing.T) {
 				Id:          "testId",
 				Name:        "testName",
 				MaxMember:   5,
-				MemberCount: 1,
+				MemberCount: 0,
 			}
 			db_test, mock, err := sqlmock.New()
 			if err != nil {
