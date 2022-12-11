@@ -63,9 +63,9 @@ func (h *RoomWsHandler) DeleteHubOfRoomId(ctx *gin.Context) {
 
 }
 
-// receiveEventInfoFromConnはクライアントからEvent情報が送られてきたとき、
-// Eventごとに処理を行い、新たなRoom情報をBroadcastRoomInfoに書き込みます
-func (h *RoomWsHandler) receiveEventInfoFromConn(c *Client) {
+// receiveChatInfoFromConnはクライアントからChat情報が送られてきたとき、
+// ChatをDBにインサートし、新たなChatをBroadcastRoomInfoに書き込みます
+func (h *RoomWsHandler) receiveChatInfoFromConn(c *Client) {
 	defer func() {
 		c.Hub.Unregister <- c
 		c.Conn.Close()
@@ -83,7 +83,7 @@ func (h *RoomWsHandler) receiveEventInfoFromConn(c *Client) {
 		}
 
 		e := json.ChatJsonToEntity(&eJson)
-		// eventを実行して、最新のroomオブジェクトを返す
+		// chatを実行して、最新のroomオブジェクトを返す
 		room, err := h.ucChat.CreateChat(e.Message, e.Size, e.MemberId, e.RoomId, e.Score)
 		if err != nil {
 			log.Println("ExecEventOfEventType Error :", err)
@@ -145,5 +145,5 @@ func (h *RoomWsHandler) serveWsConnOfHub(hub *Hub, w http.ResponseWriter, r *htt
 	client.Hub.Register <- client
 
 	go h.sendRoomInfoToAllClients(client)
-	go h.receiveEventInfoFromConn(client)
+	go h.receiveChatInfoFromConn(client)
 }
