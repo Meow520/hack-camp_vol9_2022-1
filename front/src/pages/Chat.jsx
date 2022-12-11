@@ -22,7 +22,6 @@ export const Chat = () => {
     if (lastMessage !== null) {
       const message = JSON.parse(lastMessage.data);
       message.randomLocation = randomLocationStyle();
-      message.hidden = false;
       if (message.score < 0) {
         message.fontSize = "text-xl text-red-400";
       }
@@ -35,18 +34,22 @@ export const Chat = () => {
       } else {
         message.fontSize = "text-6xl";
       }
+      // message.date = new Date();
+      message.hidden = false;
       console.log(message);
-      console.log(message.randomLocation);
       // setTimeout(((message)=>{message.hidden = true}), 3*1000)
       setMessageHistory((prev) => prev.concat(message));
       setSendState(true);
     }
   }, [lastMessage, setMessageHistory]);
 
-  // useEffect(()=>{setInterval(() => {
-  //   // 配列から先頭の要素を削除する
-  //   messageHistory.shift();
-  // }, 10000); })
+  // setInterval(() => {
+  //   const now_time = new Date();
+  //   const new_messageHistory = messageHistory.filter((message) => {
+  //     return (now_time - message.date) <= 10000;
+  //   });
+  //   setMessageHistory(new_messageHistory);
+  // }, 1000);
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: "Connecting",
@@ -61,7 +64,11 @@ export const Chat = () => {
       <Header />
       <div className="w-screen h-screen">
         <span>The WebSocket is currently {connectionStatus}</span>
-        <RandomMessage messageHistory={messageHistory} sendState={sendState} setSendState={setSendState} />
+        <RandomMessage
+          messageHistory={messageHistory}
+          sendState={sendState}
+          setSendState={setSendState}
+        />
         <div className="flex justify-center">
           <MessageInput member_id={1} room_id={id} sendMessage={sendMessage} />
         </div>
