@@ -19,39 +19,8 @@ export const Chat = () => {
   const [messageHistory, setMessageHistory] = useState([]);
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
   const [sendState, setSendState] = useState(false);
-  const [member, setMember] = useState([]);
-  const [roomName, setRoomName] = useState("");
-
-  useEffect(() => {
-    const getEvent = async () => {
-      const response = await $axios
-        .get(`/member/room/${id}`)
-        .then((res) => {
-          setMember(res.data.data);
-          return res.data;
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
-      console.log(response.data);
-      return response.data;
-    };
-    const getRoom = async () => {
-      const response = await $axios
-        .get(`/room/${id}`)
-        .then((res) => {
-          setRoomName(res.data.data.name);
-          return res.data;
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
-      console.log(response.data);
-      return response.data;
-    };
-    getRoom();
-    getEvent();
-  }, []);
+  // const [member, setMember] = useState([]);
+  // const [roomName, setRoomName] = useState("");
 
   useEffect(() => {
     if (lastMessage !== null) {
@@ -89,8 +58,10 @@ export const Chat = () => {
   return (
     <ChatContainer>
       <div className="w-screen h-screen">
-        <Header name={roomName} />
-        <MemberList member={member} />
+        <Header id={id} />
+        {/* <div className="pt-2 pr-2 pl-auto">
+          <MemberList member={member} />
+        </div> */}
         <span>The WebSocket is currently {connectionStatus}</span>
         <RandomMessage
           messageHistory={messageHistory}
