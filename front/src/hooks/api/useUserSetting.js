@@ -11,8 +11,10 @@ export const useUserSetting = () => {
       })
       .then((res) => {
         //画面遷移するならここでnavigate
-        console.log(res);
-        navigate('/chat/' + id)
+        console.log('resのdata',res.data.data.id)
+        navigate('/chat/' + id ,{
+          state: { id: res.data.data.id},
+        })
       })
       .catch((err) => {
         console.log(err);
