@@ -32,6 +32,8 @@ func (repo *RoomRepository) NewRoom(id string, name string, max_member int, memb
 	}
 	defer stmt.Close()
 
+	member_count = 0
+
 	room := &entity.Room{}
 	_, err = stmt.Exec(id, name, max_member, member_count)
 
