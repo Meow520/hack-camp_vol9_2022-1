@@ -7,6 +7,8 @@ import { RandomMessage } from "../components/parts/RandomMessage";
 import { randomLocationStyle } from "../constant/randomLocationStyle";
 import { Header } from "../components/parts/Header";
 import { generateFontSize } from "../constant/generateFontSize";
+import { $axios } from "../hooks/api/axios";
+import { MemberList } from "../components/parts/MemberList";
 
 export const Chat = () => {
   const { id } = useParams();
@@ -17,12 +19,13 @@ export const Chat = () => {
   const [messageHistory, setMessageHistory] = useState([]);
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
   const [sendState, setSendState] = useState(false);
+  // const [member, setMember] = useState([]);
+  // const [roomName, setRoomName] = useState("");
 
   useEffect(() => {
     if (lastMessage !== null) {
       const message = JSON.parse(lastMessage.data);
       message.randomLocation = randomLocationStyle();
-      message.hidden = false;
       if (message.score < 0) {
         message.fontSize = "text-xl text-red-400";
       }
@@ -35,18 +38,14 @@ export const Chat = () => {
       } else {
         message.fontSize = "text-6xl";
       }
+      // message.date = new Date();
+      message.hidden = false;
       console.log(message);
-      console.log(message.randomLocation);
       // setTimeout(((message)=>{message.hidden = true}), 3*1000)
       setMessageHistory((prev) => prev.concat(message));
       setSendState(true);
     }
   }, [lastMessage, setMessageHistory]);
-
-  // useEffect(()=>{setInterval(() => {
-  //   // 配列から先頭の要素を削除する
-  //   messageHistory.shift();
-  // }, 10000); })
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: "Connecting",
@@ -58,10 +57,17 @@ export const Chat = () => {
 
   return (
     <ChatContainer>
-      <Header />
       <div className="w-screen h-screen">
+        <Header id={id} />
+        {/* <div className="pt-2 pr-2 pl-auto">
+          <MemberList member={member} />
+        </div> */}
         <span>The WebSocket is currently {connectionStatus}</span>
-        <RandomMessage messageHistory={messageHistory} sendState={sendState} setSendState={setSendState} />
+        <RandomMessage
+          messageHistory={messageHistory}
+          sendState={sendState}
+          setSendState={setSendState}
+        />
         <div className="flex justify-center">
           <MessageInput member_id={1} room_id={id} sendMessage={sendMessage} />
         </div>
