@@ -7,6 +7,7 @@ import { RandomMessage } from "../components/parts/RandomMessage";
 import { randomLocationStyle } from "../constant/randomLocationStyle";
 import { Header } from "../components/parts/Header";
 import { generateFontSize } from "../constant/generateFontSize";
+import { $axios } from "../hooks/api/axios";
 
 export const Chat = () => {
   const { id } = useParams();
@@ -17,6 +18,24 @@ export const Chat = () => {
   const [messageHistory, setMessageHistory] = useState([]);
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
   const [sendState, setSendState] = useState(false);
+  const [member, setMember] = useState([]);
+
+  useEffect(() => {
+    const getEvent = async () => {
+      const response = await $axios
+        .get(`/member/room/${id}`)
+        .then((res) => {
+          setMember(res.data.data);
+          return res.data;
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+      console.log(response.data);
+      return response.data;
+    };
+    getEvent();
+  }, []);
 
   useEffect(() => {
     if (lastMessage !== null) {
@@ -43,14 +62,6 @@ export const Chat = () => {
     }
   }, [lastMessage, setMessageHistory]);
 
-  // setInterval(() => {
-  //   const now_time = new Date();
-  //   const new_messageHistory = messageHistory.filter((message) => {
-  //     return (now_time - message.date) <= 10000;
-  //   });
-  //   setMessageHistory(new_messageHistory);
-  // }, 1000);
-
   const connectionStatus = {
     [ReadyState.CONNECTING]: "Connecting",
     [ReadyState.OPEN]: "Open",
@@ -61,8 +72,15 @@ export const Chat = () => {
 
   return (
     <ChatContainer>
-      <Header />
       <div className="w-screen h-screen">
+      <Header />
+      {member.map((member) => {
+        return (
+          <div className="flex justify-center">
+            <span className="text-sm">{member.name}</span>
+          </div>
+        );
+      })}
         <span>The WebSocket is currently {connectionStatus}</span>
         <RandomMessage
           messageHistory={messageHistory}
