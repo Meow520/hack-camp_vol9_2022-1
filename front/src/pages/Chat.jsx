@@ -16,7 +16,7 @@ export const Chat = () => {
   //idを取得
 
   const [socketUrl, setSocketUrl] = useState(
-    `ws://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app/ws/${id}`
+    `wss://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app/ws/${id}`
   );
   const [messageHistory, setMessageHistory] = useState([]);
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
