@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 
-export const MessageInput = ({ room_id, sendMessage, messageHistory, userId }) => {
+export const MessageInput = ({ room_id, sendMessage, userId }) => {
   const [text, setText] = useState("");
-  const [size, setSize] = useState("small");
+  const size = "small";
   const inputRef = useRef();
 
-  const handleSubmit = (messageHistory) => {
+  const handleSubmit = () => {
     const json = JSON.stringify({
       message: text,
       size: size,
@@ -32,12 +32,13 @@ export const MessageInput = ({ room_id, sendMessage, messageHistory, userId }) =
     <div className="mb-5 w-screen">
       <input
         type="text"
-        className="w-2/3 h-10 rounded-2xl"
+        className="w-2/3 h-10 rounded-2xl bg-messagebox px-5"
         onChange={(e) => {
           setText(e.target.value);
         }}
         ref={inputRef}
         onKeyDown={handleKeyDown}
+        placeholder="message"
       />
     </div>
   );

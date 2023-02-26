@@ -36,7 +36,7 @@ export const Header = ({ id }) => {
     getEvent();
   }, []);
   return (
-    <div className="text-xl text-white text-center font-bold bg-blue-700 opacity-80 py-3">
+    <div className="text-xl text-gray-500 text-center font-bold bg-messagebox py-3">
       消えちゃっと - {roomName} room
       <MemberList member={member} />
     </div>

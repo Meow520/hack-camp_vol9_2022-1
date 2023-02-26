@@ -5,16 +5,22 @@ module.exports = {
     extend: {
       // that is animation class
       animation: {
-        fade: "fadeOut 5s ease-in-out",
+        fade: "disappear 6s",
       },
-
       // that is actual animation
-      keyframes: (theme) => ({
-        fadeOut: {
-          "0%": { backgroundColor: theme("colors.red.300") },
-          "100%": { backgroundColor: theme("colors.transparent") },
+      keyframes: {
+        disappear: {
+          "0%": { opacity: 1 },
+          "70%": { opacity: 1 },
+          "100%": { opacity: 0 },
         },
-      }),
+      },
+      colors: {
+        messagebox: "rgba(255, 255, 255, 0.42)",
+        "purple-red": "#C76193",
+        salmon: "#FFC0B2",
+        "orange-pink":"#FF8586"
+      },
     },
   },
   plugins: [],

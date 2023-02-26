@@ -12,7 +12,7 @@ export const MemberList = ({ member }) => {
         <div>
           <button
             type="button"
-            className=" border border-gray-300 opacity-100 bg-white dark:bg-gray-800 shadow-sm flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+            className=" border border-gray-300 opacity-100 bg-white dark:bg-gray-600 shadow-sm flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-400 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
             id="options-menu"
             onClick={handleClick}
           >
@@ -29,7 +29,7 @@ export const MemberList = ({ member }) => {
           </button>
         </div>
         {open && (
-          <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-black ring-opacity-5 opacity-100">
+          <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-gray-600 ring-1 ring-black ring-opacity-5 opacity-100">
             <div
               className="py-1 "
               role="menu"
@@ -38,15 +38,14 @@ export const MemberList = ({ member }) => {
             >
               {member.map((member) => {
                 return (
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 opacity-100"
-                    role="menuitem"
+                  <div
+                    className="block px-4 py-2 text-md text-gray-400 hover:bg-gray-100 hover:text-gray-600
+                     dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-400 dark:bg-gray-700 opacity-70"
                   >
                     <span className="flex flex-col">
                       <span>{member.name}</span>
                     </span>
-                  </a>
+                  </div>
                 );
               })}
             </div>

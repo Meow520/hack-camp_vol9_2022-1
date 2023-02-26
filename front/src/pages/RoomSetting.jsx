@@ -3,7 +3,6 @@ import { TriangleContainer } from "../components/layout/TriangleContainer";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRoomSetting } from "../hooks/api/useRoomSetting";
 import { InputBlock } from "../components/atoms/InputBlock";
-import { useState } from "react";
 
 export const RoomSetting = () => {
   const { createRoom } = useRoomSetting();

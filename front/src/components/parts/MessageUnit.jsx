@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { $axios } from "../../hooks/api/axios";
 
-export const MessageUnit = ({ data, idx }) => {
+export const MessageUnit = ({ data }) => {
   const [isHidden, setIsHidden] = useState(false);
   const [name, setName] = useState("");
 
@@ -27,16 +27,16 @@ export const MessageUnit = ({ data, idx }) => {
   return (
     <>
       {!isHidden && (
-        <p className={`${data.randomLocation}`}>
+        <div className={`${data.randomLocation} ${"flex justify-center items-center animate-fade"}`}>
           {name}
           <span
             className={` ${
               data.fontSize
-            } ${"bg-white rounded-2xl px-3 transition-opacity ease-in duration-700 opacity-100"} `}
+            } ${"bg-messagebox drop-shadow-xl rounded-full ml-2"} `}
           >
             {data ? data.message : null}
           </span>
-        </p>
+        </div>
       )}
     </>
   );
