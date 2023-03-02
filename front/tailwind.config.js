@@ -6,7 +6,7 @@ module.exports = {
       // that is animation class
       animation: {
         message: "message 6s",
-        "scale": "scale-in-center 0.5s both",
+        scale: "scale-in-center 0.5s both",
         loading: "loading 3s",
         starting: "fadeout 4s",
         "starting-logo": "fadein-out 4s",
@@ -28,8 +28,11 @@ module.exports = {
             transform: "translateY(0px)",
             "transform-origin": "50% 50%",
           },
-          "70%": {
+          "60%": {
             opacity: 1,
+          },
+          "95%": {
+            opacity: 0,
           },
           to: { opacity: 0 },
         },
@@ -86,8 +89,8 @@ module.exports = {
             top: "290px",
           },
           "40%": { top: "300px" },
-          "60%":{top:"290px"},
-          "80%":{top:"305px"},
+          "60%": { top: "290px" },
+          "80%": { top: "305px" },
           to: {
             top: "290px",
             left: "950px",
