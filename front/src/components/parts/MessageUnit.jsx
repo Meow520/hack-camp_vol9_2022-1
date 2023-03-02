@@ -32,7 +32,7 @@ export const MessageUnit = ({ data }) => {
           <span
             className={` ${
               data.fontSize
-            } ${"bg-messagebox drop-shadow-xl rounded-full ml-2 dark:bg-messagebox-dark"}`}
+            } ${"bg-messagebox rounded-full ml-2 dark:bg-messagebox-dark"}`}
           >
             {data ? data.message : null}
           </span>
