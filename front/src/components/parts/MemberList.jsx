@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const MemberList = ({ member }) => {
+export const MemberList = ({ members }) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -36,10 +36,11 @@ export const MemberList = ({ member }) => {
               aria-orientation="vertical"
               aria-labelledby="options-menu"
             >
-              {member.map((member) => {
+              {members.map((member) => {
                 return (
                   <div
                     className="block px-4 py-2 text-md text-gray-400 bg-memberlist hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:text-white dark:hover:bg-gray-400 dark:bg-memberlist-dark opacity-70"
+                  key={member}
                   >
                     <span className="flex flex-col">
                       <span>{member.name}</span>

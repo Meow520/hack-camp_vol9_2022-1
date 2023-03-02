@@ -7,13 +7,9 @@ import { randomLocationStyle } from "../constant/randomLocationStyle";
 import { Header } from "../components/parts/Header";
 
 export const Chat = () => {
+  //idを取得
   const { id } = useParams();
   const location = useLocation();
-  //idを取得
-
-  // const [socketUrl, setSocketUrl] = useState(
-  //   `wss://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app/ws/${id}`
-  // );
   const socketUrl = `wss://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app/ws/${id}`;
   const [messageHistory, setMessageHistory] = useState([]);
   const { sendMessage, lastMessage } = useWebSocket(socketUrl);
