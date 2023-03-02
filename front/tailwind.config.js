@@ -12,6 +12,7 @@ module.exports = {
         "starting-logo": "fadein-out 4s",
         fadein: "fadein 0.5s",
         usersetting: "usersetting 0.8s",
+        "loading-charactor": "charactor 3s",
       },
       // that is actual animation
       keyframes: {
@@ -44,9 +45,7 @@ module.exports = {
         },
         loading: {
           "0%": { width: "0%" },
-          to: {
-            width: "97%",
-          },
+          to: { width: "97%" },
         },
         fadeout: {
           "0%": {
@@ -59,7 +58,9 @@ module.exports = {
           "85%": {
             opacity: 1,
           },
-          to: { opacity: 0 },
+          to: {
+            opacity: 0,
+          },
         },
         fadein: {
           "0%": { opacity: 0.6 },
@@ -73,9 +74,23 @@ module.exports = {
           "0%": { opacity: 0 },
           "30%": { opacity: 0 },
           "50%": { opacity: 1 },
-          "80%": { opacity: 1 },
+          "70%": { opacity: 1 },
+          to: { opacity: 0 },
+        },
+        charactor: {
+          "0%": {
+            top: "300px",
+            left: "350px",
+          },
+          "20%": {
+            top: "290px",
+          },
+          "40%": { top: "300px" },
+          "60%":{top:"290px"},
+          "80%":{top:"305px"},
           to: {
-            opacity: 0,
+            top: "290px",
+            left: "950px",
           },
         },
       },

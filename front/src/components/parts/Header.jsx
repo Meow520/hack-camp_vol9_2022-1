@@ -34,7 +34,7 @@ export const Header = ({ id }) => {
     };
     getRoom();
     getEvent();
-  },[]);
+});
   return (
     <div className="text-xl text-gray-400 text-center font-bold bg-messagebox py-3 dark:bg-messagebox-dark">
       消えちゃっと - {roomName} 部屋
