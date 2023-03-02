@@ -16,11 +16,21 @@ module.exports = {
         },
       },
       colors: {
-        messagebox: "rgba(255, 255, 255, 0.42)",
+        messagebox: "#FFFFFF6B",
+        "messagebox-dark": "#00000050",
         "purple-red": "#C76193",
         salmon: "#FFC0B2",
-        "orange-pink":"#FF8586"
+        "orange-pink": "#FF8586",
+        memberlist: "#FFFFFF99",
+        "memberlist-dark":"#00000060",
+        "purple-blue": "#6C4FB2",
+        ocean: "#3C6097",
+        "deep-blue": "#202EA9",
       },
+      // backgroundImage: {
+      //   triangle: "url('./src/images/triangle.png')",
+      //   "triangle-dark": "url('./src/images/triangle_dark.png')",
+      // },
     },
   },
   plugins: [],

@@ -11,18 +11,18 @@ export const RoomSetting = () => {
   const onSubmit = async (data) => {
     // APIを叩く
     const submitData = {
-      "name":data.name,
-      "max_member":Number(data.max_member),
-      "member_count":1
-    }
+      name: data.name,
+      max_member: Number(data.max_member),
+      member_count: 1,
+    };
     data.memberCount = 1;
     await createRoom(submitData);
   };
 
   return (
     <TriangleContainer>
-      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10">
-        <p className="text-6xl py-12 font-bold">Create a Room</p>
+      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10 dark:bg-gray-800">
+        <p className="text-6xl py-12 font-bold dark:text-gray-200">Create a Room</p>
         <FormProvider {...methods}>
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
@@ -49,8 +49,8 @@ export const RoomSetting = () => {
             />
             <div className="text-center mt-10">
               <Button
-                label="create"
-                color="bg-sky-400 hover:bg-sky-200"
+                label="ルームを作成"
+                color="bg-rose-600 hover:bg-rose-400 dark:bg-indigo-700 dark:hover:bg-indigo-500"
                 type="submit"
                 size="w-64 h-20 text-white text-3xl"
               />

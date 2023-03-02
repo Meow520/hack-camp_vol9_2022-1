@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useWebSocket, { ReadyState } from "react-use-websocket";
+import useWebSocket from "react-use-websocket";
 import { useLocation, useParams } from "react-router-dom";
 import { MessageInput } from "../components/atoms/MessageInput";
 import { RandomMessage } from "../components/parts/RandomMessage";
@@ -16,7 +16,7 @@ export const Chat = () => {
   // );
   const socketUrl = `wss://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app/ws/${id}`;
   const [messageHistory, setMessageHistory] = useState([]);
-  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+  const { sendMessage, lastMessage } = useWebSocket(socketUrl);
   const [sendState, setSendState] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,9 @@ export const Chat = () => {
 
   return (
     <div className="justify-center flex text-center">
-      <div className="w-screen h-screen bg-gradient-to-r from-salmon to-purple-red via-orange-pink dark:from-blue-900 dark:to-indigo-800">
+      <div 
+      className="w-screen h-screen bg-gradient-to-r from-salmon to-purple-red via-orange-pink 
+      dark:from-purple-blue dark:to-deep-blue dark:via-ocean">
         <Header id={id} />
         <RandomMessage
           messageHistory={messageHistory}
