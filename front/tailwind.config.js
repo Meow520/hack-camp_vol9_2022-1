@@ -8,10 +8,10 @@ module.exports = {
         message: "message 6s",
         "scale-in-center": "scale-in-center 0.5s both",
         loading: "loading 3s",
-        starting: "fadeout 3s",
-        "starting-logo": "fadein-out 3s",
-        fadein: "fadein 0.3s",
-        usersetting:"usersetting 0.8s"
+        starting: "fadeout 4s",
+        "starting-logo": "fadein-out 4s",
+        fadein: "fadein 0.5s",
+        usersetting: "usersetting 0.8s",
       },
       // that is actual animation
       keyframes: {
@@ -73,6 +73,7 @@ module.exports = {
           "0%": { opacity: 0 },
           "30%": { opacity: 0 },
           "50%": { opacity: 1 },
+          "80%": { opacity: 1 },
           to: {
             opacity: 0,
           },

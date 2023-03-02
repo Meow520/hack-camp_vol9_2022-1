@@ -22,7 +22,7 @@ export const RoomSetting = () => {
   };
   setTimeout(() => {
     setIsStarting(false);
-  }, 3000);
+  }, 4000);
 
   return isStarting ? (
     <Starting />
