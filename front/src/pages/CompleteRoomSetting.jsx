@@ -19,8 +19,9 @@ export const CompleteRoomSetting = () => {
   return (
     <TriangleContainer>
       <div className="w-1/2 h-128 bg-white my-auto rounded-2xl dark:bg-gray-800">
-        <p className="text-6xl pt-24 pb-6 font-bold dark:text-gray-200">Get URL</p>
-        <p className="text-xl dark:text-gray-100">Share the URL with your friends!</p>
+        <p className="text-6xl pt-20 pb-10 font-bold text-gray-600 dark:text-gray-200">
+          設定完了
+        </p>
         <div className="pb-20 pt-5">
           <div className="pb-6 w-54 text-center my-3">
             <a
@@ -35,10 +36,10 @@ export const CompleteRoomSetting = () => {
               className="text-xl text-slate-500 bg-slate-50 hover:bg-slate-200 w-32 h-18 border rounded-md dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-gray-300"
               onClick={copy}
             >
-              Share URL
+              URLをコピー
             </button>
             {visible && (
-              <p className="text-rose-500 text-xl mt-2">Copied URL</p>
+              <p className="text-rose-500 text-xl mt-2">URLをコピーしました</p>
             )}
           </div>
         </div>

@@ -5,11 +5,12 @@ module.exports = {
     extend: {
       // that is animation class
       animation: {
-        fade: "disappear 6s",
+        message: "message 6s",
+        "scale-in-center": "scale-in-center 0.5s both",
       },
       // that is actual animation
       keyframes: {
-        disappear: {
+        message: {
           "0%": {
             opacity: 0,
             transform: "translateY(25px)",
@@ -21,27 +22,24 @@ module.exports = {
             transform: "translateY(0px)",
             "transform-origin": "50% 50%",
           },
-          "70%":{
-            opacity:1,
+          "70%": {
+            opacity: 1,
           },
-          "100%": { opacity: 0 },
+          to: { opacity: 0 },
         },
-        "pop-up": {
+        "scale-in-center": {
           "0%": {
-            transform: "translateY(0)",
-            "transform-origin": "50% 50%",
-            "text-shadow": "none",
+            transform: "translateY(5px)",
+            opacity: "0.5",
           },
           to: {
-            transform: "translateY(-50px)",
-            "transform-origin": "50% 50%",
-            "text-shadow":
-              "0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc, 0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc, 0 50px 30px rgba(0, 0, 0, .3)",
+            transform: "translateY(0px)",
+            opacity: "1",
           },
         },
       },
       colors: {
-        messagebox: "#FFFFFF6B",
+        messagebox: "#FFFFFF8B",
         "messagebox-dark": "#00000050",
         "purple-red": "#C76193",
         salmon: "#FFC0B2",

@@ -38,7 +38,7 @@ export const Header = ({ id }) => {
   return (
     <div className="text-xl text-gray-400 text-center font-bold bg-messagebox py-3 dark:bg-messagebox-dark">
       消えちゃっと - {roomName} room
-      <MemberList member={member} />
+      <MemberList members={member} />
     </div>
   );
 };
