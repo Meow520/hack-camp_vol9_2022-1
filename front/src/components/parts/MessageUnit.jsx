@@ -27,12 +27,12 @@ export const MessageUnit = ({ data }) => {
   return (
     <>
       {!isHidden && (
-        <div className={`${data.randomLocation} ${"flex justify-center items-center animate-fade"}`}>
+        <div className={`${data.randomLocation} ${"flex justify-center items-center animate-fade dark:text-gray-300"}`}>
           {name}
           <span
             className={` ${
               data.fontSize
-            } ${"bg-messagebox drop-shadow-xl rounded-full ml-2"} `}
+            } ${"bg-messagebox drop-shadow-xl rounded-full ml-2 dark:bg-messagebox-dark"}`}
           >
             {data ? data.message : null}
           </span>

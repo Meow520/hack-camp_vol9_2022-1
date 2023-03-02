@@ -29,10 +29,10 @@ export const MessageInput = ({ room_id, sendMessage, userId }) => {
   
 
   return (
-    <div className="mb-5 w-screen">
+    <div className="w-screen">
       <input
         type="text"
-        className="w-2/3 h-10 rounded-2xl bg-messagebox px-5"
+        className="w-2/3 h-10 rounded-2xl bg-messagebox px-5 dark:bg-messagebox-dark dark:text-white"
         onChange={(e) => {
           setText(e.target.value);
         }}
