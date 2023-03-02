@@ -1,7 +1,7 @@
 import React from "react";
 import charactor from "../../images/kiechatta.png";
 
-const Starting = () => {
+export const Starting = () => {
   return (
     <div className="w-screen h-screen flex justify-center animate-starting">
       <div className="my-auto text-5xl font-bold animate-starting-logo">
@@ -13,4 +13,3 @@ const Starting = () => {
   );
 };
 
-export default Starting;

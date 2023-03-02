@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useRoomSetting } from "../hooks/api/useRoomSetting";
 import { InputBlock } from "../components/atoms/InputBlock";
 import { useState } from "react";
-import Starting from "../components/parts/Starting";
+import { Starting } from "../components/parts/Starting";
 
 export const RoomSetting = () => {
   const { createRoom } = useRoomSetting();

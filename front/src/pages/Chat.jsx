@@ -5,7 +5,7 @@ import { MessageInput } from "../components/atoms/MessageInput";
 import { RandomMessage } from "../components/parts/RandomMessage";
 import { randomLocationStyle } from "../constant/randomLocationStyle";
 import { Header } from "../components/parts/Header";
-import Loading from "../components/parts/Loading";
+import { Loading } from "../components/parts/Loading";
 
 export const Chat = () => {
   //idを取得
