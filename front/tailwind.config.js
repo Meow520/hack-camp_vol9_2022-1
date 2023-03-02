@@ -7,6 +7,11 @@ module.exports = {
       animation: {
         message: "message 6s",
         "scale-in-center": "scale-in-center 0.5s both",
+        loading: "loading 3s",
+        starting: "fadeout 3s",
+        "starting-logo": "fadein-out 3s",
+        fadein: "fadein 0.3s",
+        usersetting:"usersetting 0.8s"
       },
       // that is actual animation
       keyframes: {
@@ -35,6 +40,41 @@ module.exports = {
           to: {
             transform: "translateY(0px)",
             opacity: "1",
+          },
+        },
+        loading: {
+          "0%": { width: "0%" },
+          to: {
+            width: "97%",
+          },
+        },
+        fadeout: {
+          "0%": {
+            opacity: 1,
+            "background-color": "#000000",
+          },
+          "40%": {
+            "background-color": "#ffffff",
+          },
+          "85%": {
+            opacity: 1,
+          },
+          to: { opacity: 0 },
+        },
+        fadein: {
+          "0%": { opacity: 0.6 },
+          to: { opacity: 1 },
+        },
+        usersetting: {
+          "0%": { opacity: 0.5, transform: "translateY(10px)" },
+          to: { opacity: 1, transform: "translateY(0px)" },
+        },
+        "fadein-out": {
+          "0%": { opacity: 0 },
+          "30%": { opacity: 0 },
+          "50%": { opacity: 1 },
+          to: {
+            opacity: 0,
           },
         },
       },

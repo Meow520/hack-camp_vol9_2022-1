@@ -18,7 +18,7 @@ export const CompleteRoomSetting = () => {
   };
   return (
     <TriangleContainer>
-      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl dark:bg-gray-800">
+      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl dark:bg-gray-800 animate-fadein">
         <p className="text-6xl pt-20 pb-10 font-bold text-gray-600 dark:text-gray-200">
           設定完了
         </p>

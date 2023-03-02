@@ -3,11 +3,13 @@ import { TriangleContainer } from "../components/layout/TriangleContainer";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRoomSetting } from "../hooks/api/useRoomSetting";
 import { InputBlock } from "../components/atoms/InputBlock";
+import { useState } from "react";
+import Starting from "../components/parts/Starting";
 
 export const RoomSetting = () => {
   const { createRoom } = useRoomSetting();
   const methods = useForm();
-
+  const [isStarting, setIsStarting] = useState(true);
   const onSubmit = async (data) => {
     // APIを叩く
     const submitData = {
@@ -18,11 +20,18 @@ export const RoomSetting = () => {
     data.memberCount = 1;
     await createRoom(submitData);
   };
+  setTimeout(() => {
+    setIsStarting(false);
+  }, 3000);
 
-  return (
+  return isStarting ? (
+    <Starting />
+  ) : (
     <TriangleContainer>
-      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10 dark:bg-gray-800">
-        <p className="text-6xl py-12 font-bold text-gray-600 dark:text-gray-200">ルーム設定</p>
+      <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10 dark:bg-gray-800 animate-fadein">
+        <p className="text-6xl py-12 font-bold text-gray-600 dark:text-gray-200">
+          ルーム設定
+        </p>
         <FormProvider {...methods}>
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
