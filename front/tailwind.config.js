@@ -6,7 +6,7 @@ module.exports = {
       // that is animation class
       animation: {
         message: "message 6s",
-        "scale-in-center": "scale-in-center 0.5s both",
+        "scale": "scale-in-center 0.5s both",
         loading: "loading 3s",
         starting: "fadeout 4s",
         "starting-logo": "fadein-out 4s",
@@ -35,7 +35,7 @@ module.exports = {
         },
         "scale-in-center": {
           "0%": {
-            transform: "translateY(5px)",
+            transform: "translateY(3px)",
             opacity: "0.5",
           },
           to: {
