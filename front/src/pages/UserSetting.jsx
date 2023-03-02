@@ -21,7 +21,7 @@ export const UserSetting = () => {
 
   return (
     <TriangleContainer>
-    <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10 dark:bg-gray-800">
+    <div className="w-1/2 h-128 bg-white my-auto rounded-2xl pb-10 dark:bg-gray-800 animate-usersetting">
       <p className="text-6xl py-12 font-bold text-gray-600 dark:text-gray-200">ユーザー設定</p>
       <FormProvider {...methods}>
         <form

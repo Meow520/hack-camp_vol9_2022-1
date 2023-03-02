@@ -5,6 +5,7 @@ import { MessageInput } from "../components/atoms/MessageInput";
 import { RandomMessage } from "../components/parts/RandomMessage";
 import { randomLocationStyle } from "../constant/randomLocationStyle";
 import { Header } from "../components/parts/Header";
+import { Loading } from "../components/parts/Loading";
 
 export const Chat = () => {
   //idを取得
@@ -14,6 +15,11 @@ export const Chat = () => {
   const [messageHistory, setMessageHistory] = useState([]);
   const { sendMessage, lastMessage } = useWebSocket(socketUrl);
   const [sendState, setSendState] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 3000);
 
   useEffect(() => {
     if (lastMessage !== null) {
@@ -36,11 +42,14 @@ export const Chat = () => {
     }
   }, [lastMessage, setMessageHistory]);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div className="justify-center flex text-center">
-      <div 
-      className="w-screen h-screen bg-gradient-to-r from-salmon to-purple-red via-orange-pink 
-      dark:from-purple-blue dark:to-deep-blue dark:via-ocean">
+      <div
+        className="w-screen h-screen bg-gradient-to-r from-salmon to-purple-red via-orange-pink 
+      dark:from-purple-blue dark:to-deep-blue dark:via-ocean"
+      >
         <Header id={id} />
         <RandomMessage
           messageHistory={messageHistory}

@@ -23,7 +23,7 @@ export const MessageUnit = ({ data }) => {
     };
     getUserName();
     console.log(name);
-  }, []);
+  });
   return (
     <>
       {!isHidden && (
