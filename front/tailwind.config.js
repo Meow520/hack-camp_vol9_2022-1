@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       // that is animation class
       animation: {
-        message: "message 6s",
+        message: "message 6.1s",
         scale: "scale-in-center 0.5s both",
         loading: "loading 3s",
         starting: "fadeout 4s",
