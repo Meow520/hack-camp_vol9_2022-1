@@ -45,7 +45,7 @@ export const RoomSetting = () => {
               name="name"
               options={{ required: "必須項目です" }}
               type="text"
-              placeholder="日本vsクロアチア"
+              placeholder="技育CAMPアドバンス"
             />
             <InputBlock
               text="人数"

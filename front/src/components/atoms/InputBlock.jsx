@@ -48,6 +48,7 @@ export const InputBlock = ({
             {...register(name, options)}
             placeholder={placeholder}
             defaultValue={defaultValue}
+            min="1"
           />
           {unit && <span className="text-sm dark:text-gray-100">{unit}</span>}
         </div>
