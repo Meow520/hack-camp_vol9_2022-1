@@ -9,7 +9,6 @@ export const useRoomSetting = () => {
     await $axios
       .post("/room/create", data)
       .then((res) => {
-        console.log(res);
         navigate("/complete", {
           state: { id: res.data.data.id,
           name: res.data.data.name },

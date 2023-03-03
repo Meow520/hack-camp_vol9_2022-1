@@ -22,7 +22,6 @@ export const MessageUnit = ({ data }) => {
       return response.data;
     };
     getUserName();
-    console.log(name);
   });
   return (
     <>

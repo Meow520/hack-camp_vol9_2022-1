@@ -25,7 +25,6 @@ export const Chat = () => {
     if (lastMessage !== null) {
       const message = JSON.parse(lastMessage.data);
       message.randomLocation = randomLocationStyle();
-      console.log(message.randomLocation);
       if (message.score < 0) {
         message.fontSize = "text-xs px-3 py-1";
       } else if (message.score < 0.3) {
