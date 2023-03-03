@@ -7,7 +7,7 @@ export const Starting = () => {
       <div className="my-auto text-5xl font-bold animate-starting-logo">
         <img src={charactor} alt="kiechatta" className="w-80 my-5" />
         <div className="text-5xl font-bold text-center">消えちゃっと</div>
-        <div className="text-sm text-center my-5">produce by Do'er violet</div>
+        <div className="text-sm text-center my-5">produced by <span className="text-purple-600">Do'er violet</span></div>
       </div>
     </div>
   );
