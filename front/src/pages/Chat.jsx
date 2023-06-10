@@ -1,87 +1,59 @@
-import React, { useState, useEffect, useCallback } from "react";
-import useWebSocket, { ReadyState } from "react-use-websocket";
+import React, { useState, useEffect } from "react";
+import useWebSocket from "react-use-websocket";
 import { useLocation, useParams } from "react-router-dom";
 import { MessageInput } from "../components/atoms/MessageInput";
-import { ChatContainer } from "../components/layout/ChatContainer";
 import { RandomMessage } from "../components/parts/RandomMessage";
 import { randomLocationStyle } from "../constant/randomLocationStyle";
 import { Header } from "../components/parts/Header";
-import { generateFontSize } from "../constant/generateFontSize";
-import { $axios } from "../hooks/api/axios";
-import { MemberList } from "../components/parts/MemberList";
+import { Loading } from "../components/parts/Loading";
 
 export const Chat = () => {
+  //idを取得
   const { id } = useParams();
   const location = useLocation();
-  //idを取得
-
-  const [socketUrl, setSocketUrl] = useState(
-    `wss://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app/ws/${id}`
-  );
+  const socketUrl = `wss://hack-camp-vol9-2022-1-server-bk5ujqkiba-an.a.run.app/ws/${id}`;
   const [messageHistory, setMessageHistory] = useState([]);
-  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+  const { sendMessage, lastMessage } = useWebSocket(socketUrl);
   const [sendState, setSendState] = useState(false);
-  // const [member, setMember] = useState([]);
-  // const [roomName, setRoomName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 3000);
 
   useEffect(() => {
     if (lastMessage !== null) {
       const message = JSON.parse(lastMessage.data);
       message.randomLocation = randomLocationStyle();
       if (message.score < 0) {
-        message.fontSize = "text-xl";
-      }
-      if (message.score < 0.3) {
-        message.fontSize = "text-2xl";
+        message.fontSize = "text-xs px-3 py-1";
+      } else if (message.score < 0.3) {
+        message.fontSize = "text-md px-4 py-1";
       } else if (message.score < 0.7) {
-        message.fontSize = "text-3xl";
+        message.fontSize = "text-2xl px-4 py-2";
       } else if (message.score < 0.85) {
-        message.fontSize = "text-4xl";
+        message.fontSize = "text-4xl px-6 py-3";
       } else {
-        message.fontSize = "text-6xl";
+        message.fontSize = "text-6xl px-10 py-4";
       }
-      // message.date = new Date();
-
-      // const getUserName = async () => {
-      //   const response = await $axios
-      //     .get(`/room/${id}`)
-      //     .then((res) => {
-      //       setRoomName(res.data.data.name);
-      //       return res.data;
-      //     })
-      //     .catch((err) => {
-      //       console.log("err", err);
-      //     });
-      //   return response.data;
-      // };
-      // getRoom();;
-
-      // setTimeout(((message)=>{message.hidden = true}), 3*1000)
       setMessageHistory((prev) => prev.concat(message));
       setSendState(true);
     }
   }, [lastMessage, setMessageHistory]);
 
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: "Connecting",
-    [ReadyState.OPEN]: "Open",
-    [ReadyState.CLOSING]: "Closing",
-    [ReadyState.CLOSED]: "Closed",
-    [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-  }[readyState];
-
-  return (
-    <ChatContainer>
-      <div className="w-screen h-screen">
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <div className="justify-center flex text-center">
+      <div
+        className="w-screen h-screen bg-gradient-to-r from-salmon to-purple-red via-orange-pink 
+      dark:from-purple-blue dark:to-deep-blue dark:via-ocean"
+      >
         <Header id={id} />
-        {/* <div className="pt-2 pr-2 pl-auto">
-          <MemberList member={member} />
-        </div> */}
         <RandomMessage
           messageHistory={messageHistory}
           sendState={sendState}
           setSendState={setSendState}
-          // userName={userName}
         />
         <div className="flex justify-center">
           <MessageInput
@@ -91,6 +63,6 @@ export const Chat = () => {
           />
         </div>
       </div>
-    </ChatContainer>
+    </div>
   );
 };

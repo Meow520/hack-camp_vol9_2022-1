@@ -34,11 +34,11 @@ export const Header = ({ id }) => {
     };
     getRoom();
     getEvent();
-  }, []);
+});
   return (
-    <div className="text-xl text-white text-center font-bold bg-blue-700 opacity-80 py-3">
-      消えちゃっと - {roomName} room
-      <MemberList member={member} />
+    <div className="text-xl text-gray-400 text-center font-bold bg-messagebox py-3 dark:bg-messagebox-dark">
+      消えちゃっと - {roomName} 部屋
+      <MemberList members={member} />
     </div>
   );
 };

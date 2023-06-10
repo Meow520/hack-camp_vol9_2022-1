@@ -21,12 +21,12 @@ export const InputBlock = ({
 
   const colorStyle = errors[name]
     ? "bg-red-100 focus:outline-red-200"
-    : "border-gray-600 focus:bg-indigo-100 focus:outline-indigo-200";
+    : "border-gray-600 focus:bg-pink-100 focus:outline-pink-200 dark:focus:bg-indigo-100 dark:focus:outline-indigo-200 dark:bg-gray-600";
 
   return (
     <div className="mb-5">
       <label htmlFor={name} className="mb-2">
-        <span className="text-sm">
+        <span className="text-sm dark:text-gray-100">
           {text}
           {isRequired && <span className="text-red-600">*</span>}
         </span>
@@ -48,8 +48,9 @@ export const InputBlock = ({
             {...register(name, options)}
             placeholder={placeholder}
             defaultValue={defaultValue}
+            min="1"
           />
-          {unit && <span className="text-sm">{unit}</span>}
+          {unit && <span className="text-sm dark:text-gray-100">{unit}</span>}
         </div>
       ) : (
         <input

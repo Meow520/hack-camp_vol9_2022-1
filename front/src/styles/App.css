@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.setting {
-  background-image: "../images/background.png";
+#triangle {
+background-image: url("../images/triangle.png");
+}
+
+@media (prefers-color-scheme: dark) {
+  #triangle {
+    background-image: url("../images/triangle_dark.png");
+  }
 }

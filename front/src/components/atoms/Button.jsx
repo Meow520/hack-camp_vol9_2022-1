@@ -16,7 +16,7 @@ export const Button = ({
   disabled,
   size,
 }) => {
-  const className = `${size} ${color} ${"items-center rounded-md px-4 py-2"}`;
+  const className = `${size} ${color} ${"items-center rounded-md px-4 py-2 hover:animate-scale"}`;
   return (
     <button
       type={type}

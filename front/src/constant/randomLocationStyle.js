@@ -15,7 +15,7 @@ export const randomLocationStyle = () => {
     case 6:
       return "absolute top-80 left-20";
     case 7:
-      return "absolute top-12 right-32";
+      return "absolute top-24 right-32";
     case 8:
       return "absolute bottom-96 left-24";
     case 9:
@@ -39,9 +39,9 @@ export const randomLocationStyle = () => {
     case 18:
       return "absolute top-56 left-48";
     case 19:
-      return "absolute top-12 left-12";
+      return "absolute top-24 left-12";
     case 20:
-      return "absolute top-12 right-8";
+      return "absolute top-24 right-8";
     case 21:
       return "absolute bottom-32 left-12";
     case 22:
